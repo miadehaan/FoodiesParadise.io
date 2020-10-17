@@ -1,25 +1,43 @@
-// Import the ORM to create functions that will interact with the database.
-var orm = require("../config/orm.js");
+function restaurant(sequelize, Datatypes) {
+  var Rest = sequelize.define("Restaurants", {
+    ID: {
+      type: Datatypes.INT,
+      primaryKey: true,
+    },
+    NAME: {
+      type: Datatypes.STRING,
+      allowNull: false,
+      len: [64],
+    },
+  });
+  return Rest;
+}
 
-var burger = {
-  all: function(cb) {
-    orm.all("burgers", function(res) {
-      cb(res);
-    });
-  },
-  // The variables cols and vals are arrays.
-  create: function(cols, vals, cb) {
-    orm.create("burgers", cols, vals, function(res) {
-      cb(res);
-    });
-  },
-  update: function(objColVals, condition, cb) {
-    orm.update("burgers", objColVals, condition, function(res) {
-      cb(res);
-    });
-  },
+function dishes(sequelize, Datatypes) {
+  var Dishes = sequelize.define("Dishes", {
+    ID: {
+      type: Datatypes.INT,
+      primaryKey: true,
+    },
+    NAME: {
+      type: Datatypes.STRING,
+      allowNull: false,
+      len: [64],
+    },
+    RID: {
+      type: Datatypes.INT,
+    },
+  });
 
-};
+  Food.associate = function (models) {
+    Food.belongsTo(models.Restaurants, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+  return Dishes;
+}
 
-// Export the database functions for the controller (catsController.js).
-module.exports = burger;
+module.exports = restaurant;
+module.exports = dishes;
