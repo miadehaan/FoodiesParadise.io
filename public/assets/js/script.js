@@ -31,14 +31,13 @@ $(function () {
 
     }
 
-    // $(".create-form").on("submit", function (event) {
-    //     // Make sure to preventDefault on a submit event.
-    //     event.preventDefault();
+    // Input for restaurant search
+    $(".create-form").on("submit", function (event) {
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
 
-    //     var newBurger = {
-    //         name: $("#ca").val().trim(),
-    //         devoured: 0
-    //     };
+        let userSearch = $("#restaurantSearch").val().trim();
+
 
     //     // Send the POST request.
     //     $.ajax("/api/burgers", {
@@ -51,7 +50,7 @@ $(function () {
     //             location.reload();
     //         }
     //     );
-    // });
+    });
 
     // Run geoFindMe on load
     geoFindMe();
