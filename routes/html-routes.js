@@ -8,9 +8,10 @@ const {
 const app = express();
 // routes
 
-// index route loads view.html
+// index route loads views folder & the index.handlebars
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../views/index.html"));
+    // res.sendFile(path.join(__dirname, "../views/index.html"));
+    res.sendFile(path.join(__dirname, "../views/index.handlebars"));
 });
 
 // cms route loads cms.html
