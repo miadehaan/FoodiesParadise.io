@@ -1,9 +1,5 @@
 module.exports=function(sequelize, Datatypes) {
     var Dish = sequelize.define("Dish", {
-      ID: {
-        type: Datatypes.STRING,
-        primaryKey: true,
-      },
       NAME: {
         type: Datatypes.STRING,
         allowNull: false,
@@ -15,7 +11,7 @@ module.exports=function(sequelize, Datatypes) {
     });
   
     Dish.associate = function (models) {
-        Dish.belongsTo(models.Restaurant, {
+        Dish.hasMany(models.Restaurant, {
         foreignKey: {
           allowNull: false,
         },

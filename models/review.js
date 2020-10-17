@@ -1,7 +1,7 @@
-function review(sequelize, Datatypes) {
+module.exports=function (sequelize, Datatypes) {
   var review = sequelize.define("Review", {
     ID: {
-      type: Datatypes.INT,
+      type: Datatypes.STRING,
       primaryKey: true,
     },
     NAME: {
@@ -20,7 +20,7 @@ function review(sequelize, Datatypes) {
       len: [64],
     },
     DID: {
-        type: Datatypes.INT,
+        type: Datatypes.STRING,
       },
   });
   
@@ -31,4 +31,5 @@ function review(sequelize, Datatypes) {
       },
     });
   };
+  return review;
 }
