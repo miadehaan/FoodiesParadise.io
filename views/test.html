@@ -13,20 +13,35 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="..\public\assets/js/script.js"></script>
+		<script src="..\public\assets/js/styling.js"></script>
+    <script src="..\public\assets/js/script.js"></script>
 
 </head>
 
 <body>
   <!-- {{> header}} -->
-  <div class="jumbotron jumbotron-fluid">
+  <nav class="jumbotron jumbotron-fluid">
+    <!-- Open side navigation for smaller windows -->
+    <!-- <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  -->
     <h1 class="display-4">Welcome to Foodies Paradise!</h1>
     <p class="lead">Add reviews for all your favorite dishes</p>
-  </div>
+  </nav>
 
   <!-- Left Navbar -->
-  <nav id="sidebar">
+  <nav class="sidenav">
+    <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> -->
+    <h3 id="searchHeader">Search for a restaurant</h3>
+      <!-- <a href="#">About</a> -->
 
+      <!-- Search by Restaurant -->
+      <!-- <div class="input-group mb-3">
+        <input type="text" id="restaurantSearch" class="form-control" placeholder="restaurant name" aria-label="restaurant name" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-dark" type="button" id="button-addon2">Button</button>
+        </div>
+      </div> -->
+
+      <!-- Search by Dish Type -->
 
 
 
@@ -34,17 +49,55 @@
 
 
   <!-- {{{ body }}} -->
-    
-   
+  <main id="main">
+
+    <div class="container">
+      <div class="row">
+        <!-- Display the info with the selected restaurant -->
+        <section class="col-12 restaurantInfo">
+          <h2>Restaurant</h2>
+          <p>restaurant info will go here</p>
+        </section>
+
+        <!--  -->
+        <section class="col-12 dishReviews">
+          <h2>Dish Reviews</h2>
+          <p>Reviewed Dishes will go here</p>
+        </section>
+
+        <section class="col-12 newReview">
+          <h2>Add New Review</h2>
+          <p>User can add new dish review here</p>
+        </section>
+
+      </div>
+    </div>
+
+
+  </main>
+
 
   
-
   <!-- {{> footer}} -->
-  <footer class="footer fixed-bottom bg-dark text-white-50">
+  <footer class="footer fixed-bottom text-white-50">
       <div class="container text-center">
         <small>Copyright &copy; Foodies Paradise</small>
       </div>
   </footer>
+
+
+  <!-- Collapsed Side Navbar for smaller screen sizes -->
+  <!-- <script>
+    function openNav() {
+      document.getElementsByClassName("sidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementsByClassName("sidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+  </script> -->
 
 </body>
 

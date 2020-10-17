@@ -6,23 +6,111 @@
 body {
   font-family: 'Oswald', sans-serif;
 }
- /* Top Header */
+ /* Top Header ------------------------------------------------------------------------------- */
+.jumbotron {
+  margin-left: 250px; /* Same as the width of the sidebar */
+  height: 400px;
+  background: url("images/foodHeaderImg.jpg");
+  opacity: 80%;
+  background-size: cover;
+}
+
 h1 {
   text-align: center;
+  font-weight: 400;
+  text-shadow: 2px 2px black;
+  color: white;
 }
 
 p.lead {
   margin-top: 50px;
   text-align: center;
+  text-shadow: 2px 2px black;
+  color: white;
 }
 
-/* Side Navbar/Search */
-#sidebar {
+/* Side Nav Collapsable on smaller screens */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
 
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Side Navbar/Search ----------------------------------------------------------------*/
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 250px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #EDF2EF;
+  border-right: 1px solid black;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+#searchHeader {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #ffa2a2;
+}
+
+/* On a smaller screen size - hide navbar & show the button to open it */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/* Main Content -----------------------------------------------------------------------------*/
+#main {
+  margin-left: 250px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+
+  transition: margin-left .5s;
+
+  /* border: 1px solid red; */
+}
+
+.restaurantInfo {
+  margin-bottom: 100px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.dishReviews {
+  margin-bottom: 100px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.newReview {
+  margin-bottom: 100px;
+  border: 1px solid grey;
+  border-radius: 8px;
 }
 
 
-/* Footer */
+
+/* Footer -------------------------------------------------------------------------------------- */
 footer {
     margin-top: 100px;
     width: 100%;
@@ -30,4 +118,5 @@ footer {
     /* text-align: center; */
     line-height: 100px;
     font-size: 15px;
+    background-color: #02394A;
 }
