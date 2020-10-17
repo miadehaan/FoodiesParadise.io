@@ -1,45 +1,58 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-    $(".change-devoured").on("click", function (event) {
-        var id = $(this).data("id");
-        var newDevoured = $(this).data("newdevoured");
+    function geoFindMe() {
+        const status = document.querySelector('#status');
+        const mapLink = document.querySelector('#map-link');
 
-        var newDevouredID = {
-            devoured: newDevoured
-        };
+        mapLink.href = '';
+        mapLink.textContent = '';
 
-        // Send the PUT request.
-        $.ajax("/api/burgers/" + id, {
-            type: "PUT",
-            data: newDevouredID
-        }).then(
-            function () {
-                console.log("changed sleep to", newDevouredID);
-                // Reload the page to get the updated list
-                location.reload();
-            }
-        );
-    });
+        function success(position) {
+            const latitude  = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-    $(".create-form").on("submit", function (event) {
-        // Make sure to preventDefault on a submit event.
-        event.preventDefault();
+            // status.textContent = '';
+            // mapLink.href = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`
+            // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+            // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+            document.cookie = `lat=${latitude}, lon=${longitude}`;
+        }
 
-        var newBurger = {
-            name: $("#ca").val().trim(),
-            devoured: 0
-        };
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
 
-        // Send the POST request.
-        $.ajax("/api/burgers", {
-            type: "POST",
-            data: newBurger
-        }).then(
-            function () {
-                console.log("created new burger");
-                // Reload the page to get the updated list
-                location.reload();
-            }
-        );
-    });
+        if(!navigator.geolocation) {
+            status.textContent = 'Geolocation is not supported by your browser';
+        } else {
+            status.textContent = 'Locating…';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+
+    }
+
+    // $(".create-form").on("submit", function (event) {
+    //     // Make sure to preventDefault on a submit event.
+    //     event.preventDefault();
+
+    //     var newBurger = {
+    //         name: $("#ca").val().trim(),
+    //         devoured: 0
+    //     };
+
+    //     // Send the POST request.
+    //     $.ajax("/api/burgers", {
+    //         type: "POST",
+    //         data: newBurger
+    //     }).then(
+    //         function () {
+    //             console.log("created new burger");
+    //             // Reload the page to get the updated list
+    //             location.reload();
+    //         }
+    //     );
+    // });
+
+    // Run geoFindMe on load
+    geoFindMe();
 });
