@@ -18,12 +18,12 @@ app.use(express.json());
 app.set("view engine", "handlebars");
 // routes acquisition
 const htmlRoutes = require("./routes/html-routes");
-// const dishRoutes = require("./routes/dish-routes");
+const dishRoutes = require("./routes/dish-routes");
 // const reviewRoutes = require("./routes/review-routes");
 // const restaurantRoutes = require('./routes/restaurant-routes')
 
 app.use("/", htmlRoutes)
-// app.use("/api", dishRoutes)
+app.use("/api", dishRoutes)
 // app.use("/api", restaurantRoutes)
 // app.use("/reviews", reviewRoutes)
 
