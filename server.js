@@ -1,7 +1,7 @@
 const express = require("express");
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 8080;
-var db = require("./models");
+const db = require("./models");
 const app = express();
 
 app.use(cookieParser())
@@ -40,7 +40,9 @@ app.set("view engine", "handlebars");
 
 // Start our server so that it can begin listening to client requests.
 
-db.sequelize.sync({force:true}).then(function () {
+db.sequelize.sync({
+  force: true
+}).then(function () {
   app.listen(PORT, function () {
     // Log (server-side) when our server has started
     console.log("Server listening on: http://localhost:" + PORT);

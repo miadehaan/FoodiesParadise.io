@@ -1,17 +1,17 @@
-
-module.exports=function (sequelize, Datatypes) {
+module.exports = function (sequelize, Datatypes) {
   var Restaurant = sequelize.define("Restaurant", {
-    ID: {
-      type: Datatypes.STRING,
-      primaryKey: true,
-    },
     NAME: {
       type: Datatypes.STRING,
       allowNull: false,
       len: [64],
     },
   });
+  Restaurant.associate = function (models) {
+    Restaurant.hasMany(models.Dish, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
   return Restaurant;
 };
-
-
