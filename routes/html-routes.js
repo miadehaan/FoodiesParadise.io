@@ -1,49 +1,32 @@
+// dependencies
+const path = require("path");
 var express = require("express");
+const {
+    Router
+} = require("express");
 
-var router = express.Router();
+const app = express();
+// routes
 
-// Import the model (burgers.js) to use its database functions.
-var burger = require("../models/burger.js");
-
-// Create all our routes and set up logic within those routes where required.
-router.get("/", function (req, res) {
-    burger.all(function (data) {
-        var hbsObject = {
-            burgers: data
-        };
-        console.log(hbsObject);
-        res.render("index", hbsObject);
-    });
+// index route loads view.html
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
-router.post("/api/burgers", function (req, res) {
-    console.log(req.body)
-    burger.create(["name", "devoured"], [req.body.name, req.body.devoured], function (result) {
-        // Send back the ID of the new quote
-        // res.reload("/");
-        res.json({
-            id: result.insertId
-        });
-    });
+// cms route loads cms.html
+app.get("/cms", function (req, res) {
+    res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
-router.put("/api/burgers/:id", function (req, res) {
-    var condition = "id = " + req.params.id;
+// blog route loads blog.html
+app.get("/blog", function (req, res) {
+    res.sendFile(path.join(__dirname, "../views/index.html"));
+});
 
-    console.log("condition", condition);
-
-    burger.update({
-        devoured: req.body.devoured
-    }, condition, function (result) {
-        if (result.changedRows == 0) {
-            // If no rows were changed, then the ID must not exist, so 404
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
-    });
+// authors route loads author-manager.html
+app.get("/authors", function (req, res) {
+    res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
 
-// Export routes for server.js to use.
-module.exports = router;
+module.exports = Router;
