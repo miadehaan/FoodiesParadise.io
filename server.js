@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Import routes and give the server access to them.
 app.set("view engine", "handlebars");
+
 // routes acquisition
 const htmlRoutes = require("./routes/html-routes");
 const dishRoutes = require("./routes/dish-routes");
