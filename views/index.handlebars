@@ -2,63 +2,30 @@
     * Create a button in `index.handlebars` that will submit the user input into the database.
 --}}
 
+<!-- {{{ body }}} -->
+  <main id="main">
 
+    <div class="container">
+      <div class="row">
+        <!-- Display the info with the selected restaurant -->
+        <section class="col-12 restaurantInfo">
+          <h2>Restaurant</h2>
+          <p>restaurant info will go here</p>
+        </section>
 
-<div class="container">
-  <div class="row">
+        <!--  -->
+        <section class="col-12 dishReviews">
+          <h2>Dish Reviews</h2>
+          <p>Reviewed Dishes will go here</p>
+        </section>
 
-    <h1 class="col-12">Burgers!</h1>
+        <section class="col-12 newReview">
+          <h2>Add New Review</h2>
+          <p>User can add new dish review here</p>
+        </section>
 
-    <div class="col-12">
-      <img src="https://i.pinimg.com/originals/42/de/53/42de53a97cac79ddcaee570c436a10e6.jpg" id="burgerIcon" class="rounded-circle mx-auto d-block" alt="burger icon">
+      </div>
     </div>
 
-    <div class="col-6 remainingBurgers">
-      <h2>Remaining Burgers</h2>
 
-      {{!-- Display list of burgers that have NOT been devoured --}}
-      <ul>
-        {{#each burgers}}
-          {{#unless devoured}}
-            {{> burger-block devoured=true}}
-          {{/unless}}
-        {{/each}}
-      </ul>
-    </div>
-
-    <div class="col-6 devouredBurgers">
-      <h2>Devoured Burgers</h2>
-
-      {{!-- Display list of burgers that HAVE been devoured --}}
-      <ul>
-        {{#each burgers}}
-          {{#if devoured}}
-            {{> burger-block devoured=false}}
-          {{/if}}
-        {{/each}}
-      </ul>
-    </div>
-
-    <div class="col-3"> </div>
-    <div class="col-6" id="addBurger">
-      <h2>Add a Burger</h2>
-      <form class="create-form">
-
-        <div class="form-group">
-          <label for="ca">Burger Name:</label>
-          <input type="text" id="ca" name="name">
-        </div>
-
-        <div class="form-group">
-          <label for="devour">Have you devoured it yet?</label><br>
-          <input type="radio" name="devoured" value="0" checked> Not eaten yet<br>
-          <input type="radio" name="devoured" value="1"> I've already eaten it...
-        </div>
-
-        <button type="submit" class="change-devour btn btn-outline-dark">Add Burger!</button>
-      </form>
-    </div>
-    <div class="col-3"> </div>
-
-  </div>
-</div>
+  </main>
