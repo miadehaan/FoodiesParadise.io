@@ -1,33 +1,35 @@
 // dependencies
 const path = require("path");
 var express = require("express");
-const {
-    Router
-} = require("express");
+var app = express.Router();
 
-const app = express();
+// const app = express();
 // routes
+// module.exports = function (app) {
 
-// index route loads views folder & the index.handlebars
+// app.get("/testtemplate", function (req, res) {
+//     console.log("working");
+//     res.render("index");
+
+// })
 app.get("/", function (req, res) {
     // res.sendFile(path.join(__dirname, "../views/index.html"));
-    res.sendFile(path.join(__dirname, "../views/index.handlebars"));
+    // res.sendFile(path.join(__dirname, "../views/index"));
+    res.render("index");
+
 });
 
-// cms route loads cms.html
-app.get("/cms", function (req, res) {
-    res.sendFile(path.join(__dirname, "../views/index.html"));
-});
+// app.get("/index", function (req, res) {
+//     res.sendFile(path.join(__dirname, "../views/index"));
+// });
 
-// blog route loads blog.html
-app.get("/blog", function (req, res) {
-    res.sendFile(path.join(__dirname, "../views/index.html"));
-});
+// app.get("/index", function (req, res) {
+//     res.sendFile(path.join(__dirname, "../views/index"));
+// });
 
-// authors route loads author-manager.html
-app.get("/authors", function (req, res) {
-    res.sendFile(path.join(__dirname, "../views/index.html"));
-});
+// app.get("/index", function (req, res) {
+//     res.sendFile(path.join(__dirname, "../views/index"));
+// });
 
-
-module.exports = Router;
+// }
+module.exports = app;
