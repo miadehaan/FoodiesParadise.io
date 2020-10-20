@@ -5,9 +5,6 @@ $(function () {
         const status = document.querySelector('#status');
         const mapLink = document.querySelector('#map-link');
 
-        mapLink.href = '';
-        mapLink.textContent = '';
-
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -16,17 +13,17 @@ $(function () {
             // mapLink.href = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`
             // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
             // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-            document.cookie = `lat=${latitude}, lon=${longitude}`;
+            document.cookie = `coord={"lat": "${latitude}", "lon": "${longitude}"}`;
         }
 
         function error() {
-            status.textContent = 'Unable to retrieve your location';
+            alert('Unable to retrieve your location');
         }
 
         if (!navigator.geolocation) {
-            status.textContent = 'Geolocation is not supported by your browser';
+            alert('Geolocation is not supported by your browser');
         } else {
-            status.textContent = 'Locating…';
+            console.log('Locating…');
             navigator.geolocation.getCurrentPosition(success, error);
         }
 
