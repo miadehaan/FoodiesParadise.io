@@ -5,10 +5,10 @@ const {
     Router
 } = require("express");
 
-const app = express();
+var router = express.Router();
 
 
-app.get("/dish", function (req, res) {
+router.get("/dish", function (req, res) {
     db.Dish.findAll({
         include: [db.Post]
     }).then(function (dbDish) {
@@ -16,7 +16,7 @@ app.get("/dish", function (req, res) {
     });
 });
 
-app.get("/dish/:id", function (req, res) {
+router.get("/dish/:id", function (req, res) {
     db.Dish.findOne({
         where: {
             id: req.pramas.id
@@ -27,13 +27,13 @@ app.get("/dish/:id", function (req, res) {
     });
 });
 
-app.post("/dish", function (req, res) {
+router.post("/dish", function (req, res) {
     db.Dish.create(req.body).then(function (dbDish) {
         res.json(dbDish);
     });
 });
 
-app.delete("/dish/:id", function (req, res) {
+router.delete("/dish/:id", function (req, res) {
     db.Dish.destroy({
         where: {
             id: req.params.id
@@ -44,4 +44,4 @@ app.delete("/dish/:id", function (req, res) {
 })
 
 
-module.exports = Router;
+module.exports = router;

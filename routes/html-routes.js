@@ -1,22 +1,24 @@
 // dependencies
 const path = require("path");
 var express = require("express");
+const sequelize = require("sequelize");
 var app = express.Router();
 
-// const app = express();
-// routes
-// module.exports = function (app) {
 
-// app.get("/testtemplate", function (req, res) {
+// app.get("/test", function (req, res) {
 //     console.log("working");
 //     res.render("index");
 
 // })
-app.get("/", function (req, res) {
-    // res.sendFile(path.join(__dirname, "../views/index.html"));
-    // res.sendFile(path.join(__dirname, "../views/index"));
-    res.render("index");
 
+// loads the primary HTML page 
+app.get("", function (req, res) {
+    // res.sendFile(path.join(__dirname, "../views/index.html"));
+
+    res.render("index");
+    // res.json({
+    //     name: "testing"
+    // })C:/Users/andrew/Documents/Coding Portfolio/FoodiesParadiseCopy.io/views/index.handlebars
 });
 
 // app.get("/index", function (req, res) {
@@ -31,5 +33,4 @@ app.get("/", function (req, res) {
 //     res.sendFile(path.join(__dirname, "../views/index"));
 // });
 
-// }
 module.exports = app;
