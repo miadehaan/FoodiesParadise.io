@@ -1,9 +1,6 @@
 module.exports=function (sequelize, Datatypes) {
   var review = sequelize.define("Review", {
-    ID: {
-      type: Datatypes.STRING,
-      primaryKey: true,
-    },
+ 
     NAME: {
       type: Datatypes.STRING,
       allowNull: false,
@@ -19,9 +16,6 @@ module.exports=function (sequelize, Datatypes) {
       allowNull: false,
       len: [64],
     },
-    DID: {
-        type: Datatypes.STRING,
-      },
   });
   
   review.associate = function (models) {
