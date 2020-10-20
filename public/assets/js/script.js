@@ -8,7 +8,7 @@ $(function () {
         mapLink.textContent = '';
 
         function success(position) {
-            const latitude  = position.coords.latitude;
+            const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
 
             // status.textContent = '';
@@ -22,7 +22,7 @@ $(function () {
             status.textContent = 'Unable to retrieve your location';
         }
 
-        if(!navigator.geolocation) {
+        if (!navigator.geolocation) {
             status.textContent = 'Geolocation is not supported by your browser';
         } else {
             status.textContent = 'Locating…';
@@ -38,8 +38,8 @@ $(function () {
 
         // let userSearch = $("#restaurantSearch").val().trim();
 
-        yelpAPI(latitude, longitude); 
-        
+        yelpAPI(latitude, longitude);
+
 
         // // Send the POST request.
         // $.ajax("/api/burgers", {
@@ -62,21 +62,21 @@ $(function () {
 // AJAX Call for YELP API
 function yelpAPI(latitude, longitude) {
     // AJAX call to Yelp Fusion API
-        // ******Note: at this time, the API does not return businesses without any reviews
-        // User geolocation (latitude, longitude) to pull up restaurants nearby
-        const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
-        // const queryURL = "https://api.yelp.com/v3/businesses/latitude=" + latitude + "&longitude=" + longitude + "&key=" + apiKey; // include api key & geolocation coordinates
+    // ******Note: at this time, the API does not return businesses without any reviews
+    // User geolocation (latitude, longitude) to pull up restaurants nearby
+    const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
+    // const queryURL = "https://api.yelp.com/v3/businesses/latitude=" + latitude + "&longitude=" + longitude + "&key=" + apiKey; // include api key & geolocation coordinates
 
-        // hard-code in lat/long for testing purposes:
-        const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + 45.4898865 + "&longitude=" + -122.8270407 + "&key=" + apiKey;
+    // hard-code in lat/long for testing purposes:
+    const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + 45.4898865 + "&longitude=" + -122.8270407 + "&key=" + apiKey;
 
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function(results) {
-            console.log("Here's the API results " + results);
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (results) {
+        console.log("Here's the API results " + results);
 
 
-        });
+    });
 
 }
