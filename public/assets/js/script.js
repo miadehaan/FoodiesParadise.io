@@ -1,3 +1,4 @@
+
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
     function geoFindMe() {
@@ -61,7 +62,7 @@ $(function () {
 
 // AJAX Call for YELP API
 function yelpAPI(latitude, longitude) {
-    // AJAX call to Yelp Fusion API
+    // AJAX call to Yelp Fusion - REST API
     // ******Note: at this time, the API does not return businesses without any reviews
     // User geolocation (latitude, longitude) to pull up restaurants nearby
     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
@@ -70,13 +71,34 @@ function yelpAPI(latitude, longitude) {
     // hard-code in lat/long for testing purposes:
     const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + 45.4898865 + "&longitude=" + -122.8270407 + "&key=" + apiKey;
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (results) {
-        console.log("Here's the API results " + results);
+    // $.ajax({
+    //     url: queryURL,
+    //     method: "GET"
+    // }).then(function (data) {
+    //     console.log("Here's the API data " + data);
+    // });
 
 
+    
+    // Axios 
+    let yelpREST = axios.create({
+        baseURL: "https://api.yelp.com/v3/",
+        headers: {
+            Authorization: 'Bearer ${apiKey}',
+            "Content-type": "application/json",
+        },
+    });
+
+    // Try searching for businesses by location
+    yelpREST("/businesses/search", {
+        params: {
+            location: "portland"
+        },
+    }).then( ({data}) => {
+        let { businesses } = data
+        businesses.forEach((b) => {
+            console.log("Name: ", b.name);
+        });
     });
 
 }
