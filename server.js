@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
 const app = express();
+const axios = require("axios");
 
 app.use(cookieParser())
 // Serve static content for the app from the "public" directory in the application directory.
