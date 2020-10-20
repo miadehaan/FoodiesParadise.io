@@ -16,21 +16,8 @@ app.get("", function (req, res) {
     // res.sendFile(path.join(__dirname, "../views/index.html"));
 
     res.render("index");
-    // res.json({
-    //     name: "testing"
-    // })C:/Users/andrew/Documents/Coding Portfolio/FoodiesParadiseCopy.io/views/index.handlebars
+
 });
 
-// app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
-// });
-
-// app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
-// });
-
-// app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
-// });
 
 module.exports = app;
