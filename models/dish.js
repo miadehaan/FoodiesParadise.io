@@ -1,6 +1,6 @@
 module.exports = function (sequelize, Datatypes) {
-  var Dish = sequelize.define("Dish", {
-    NAME: {
+  var dish = sequelize.define("dish", {
+    name: {
       type: Datatypes.STRING,
       allowNull: false,
       len: [64],
@@ -9,5 +9,5 @@ module.exports = function (sequelize, Datatypes) {
   });
 
 
-  return Dish;
+  return dish;
 };

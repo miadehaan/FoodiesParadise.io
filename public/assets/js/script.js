@@ -68,6 +68,7 @@ function yelpAPI(latitude, longitude) {
 
     // hard-code in lat/long for testing purposes:
     const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
+    console.log(queryURL);
 
 
     // $.ajax({
