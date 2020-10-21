@@ -75,7 +75,7 @@ p.lead {
   color: #ffa2a2;
 }
 
-.restaurantSearch {
+.restaurantSearch, .dishSearch {
   padding: 10px;
 }
 

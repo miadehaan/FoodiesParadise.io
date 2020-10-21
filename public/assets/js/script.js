@@ -35,13 +35,26 @@ $(function () {
     $(".restaurantSearch").on("submit", function (event) {
         event.preventDefault();
 
-        let userInput = $("#restaurant").val().trim();
-        console.log("The user searched for: " + userInput);
+        let userRestaurant = $("#restaurant").val().trim();
+        console.log("The user searched for: " + userRestaurant);
 
         //Clear input field
         $("#restaurant").val("");
 
-        showRestaurants(userInput);
+        showRestaurants(userRestaurant);
+    });
+
+    // Get user inputs (restuarant and/or cuisine type selected)
+    $(".dishSearch").on("submit", function (event) {
+        event.preventDefault();
+
+        let userDish = $("#dish").val().trim();
+        console.log("The user searched for: " + userDish);
+
+        //Clear input field
+        $("#restaurant").val("");
+
+        showRestaurants(userDish);
     });
 
 
