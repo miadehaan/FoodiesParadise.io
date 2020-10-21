@@ -54,7 +54,7 @@ $(function () {
         //Clear input field
         $("#restaurant").val("");
 
-        showRestaurants(userDish);
+        // showDishes(userDish);
     });
 
 
@@ -129,5 +129,4 @@ function yelpAPI(latitude, longitude) {
         });
     });
 }
-
 
