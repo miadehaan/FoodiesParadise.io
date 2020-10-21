@@ -27,53 +27,64 @@ $(function () {
             console.log('Locating…');
             navigator.geolocation.getCurrentPosition(success, error);
         }
-
     }
 
-    // Input for restaurant search
-    $(".create-form").on("submit", function (event) {
-        // Make sure to preventDefault on a submit event.
+
+
+    // Get user inputs (restuarant and/or cuisine type selected)
+    $(".restaurantSearch").on("submit", function (event) {
         event.preventDefault();
 
-        // let userSearch = $("#restaurantSearch").val().trim();
+        let userInput = $("#restaurant").val().trim();
+        console.log("The user searched for: " + userInput);
 
-        yelpAPI(latitude, longitude);
+        //Clear input field
+        $("#restaurant").val("");
 
-
-        // // Send the POST request.
-        // $.ajax("/api/burgers", {
-        //     type: "POST",
-        //     data: newBurger
-        // }).then(
-        //     function () {
-        //         console.log("created new burger");
-        //         // Reload the page to get the updated list
-        //         location.reload();
-        //     }
-        // );
-
+        showRestaurants(userInput);
     });
+
+
+
 
     // Run geoFindMe on load
     geoFindMe();
 });
 
 function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+// Send the 'userInput' to the resaturant route w/ POST method
+function showRestaurants(restaurant) {
+    $.post("/api/restaurant-routes", {
+        restaurant: restaurant
+    })
+    .then(function(data) {
+        window.location.replace("/index");
+        // If there's an error, handle it by throwing up a bootstrap alert
+    })
+    .catch(handleLoginErr);
+}
+
+function handleLoginErr(err) {
+    $("#alert .msg").text(err.responseJSON);
+    $("#alert").fadeIn(500);
+}
+
+
+//---------------------------------------------------------------------------------------------
 // AJAX Call for YELP API
 function yelpAPI(latitude, longitude) {
     // AJAX call to Yelp Fusion - REST API
     // ******Note: at this time, the API does not return businesses without any reviews
     // User geolocation (latitude, longitude) to pull up restaurants nearby
     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
-    // const queryURL = "https://api.yelp.com/v3/businesses/latitude=" + latitude + "&longitude=" + longitude + "&key=" + apiKey; // include api key & geolocation coordinates
 
-    // hard-code in lat/long for testing purposes:
     const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
+    console.log(queryURL);
 
 
     // $.ajax({
@@ -83,11 +94,10 @@ function yelpAPI(latitude, longitude) {
     //     console.log("Here's the API data " + data);
     // });
 
-
     
     // Axios 
     let yelpREST = axios.create({
-        baseURL: "https://api.yelp.com/v3/",
+        baseURL: queryURL,
         headers: {
             Authorization: 'Bearer ${apiKey}',
             "Content-type": "application/json",
@@ -105,5 +115,6 @@ function yelpAPI(latitude, longitude) {
             console.log("Name: ", b.name);
         });
     });
-
 }
+
+

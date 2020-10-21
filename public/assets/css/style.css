@@ -75,11 +75,16 @@ p.lead {
   color: #ffa2a2;
 }
 
-#restaurantSearch {
+.restaurantSearch {
   padding: 10px;
 }
 
 .cuisine {
+  margin-left: 20px;
+}
+
+#cuisineSubmit {
+  margin-top: 20px;
   margin-left: 20px;
 }
 
