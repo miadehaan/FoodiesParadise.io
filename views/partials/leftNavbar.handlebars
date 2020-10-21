@@ -1,9 +1,9 @@
 <!-- Left Navbar -->
 <nav class="sidenav">
     <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> -->
-    <h3 id="searchHeader">Search for a restaurant</h3>
 
     <!-- Search by Restaurant -->
+    <h3 id="searchHeader">Search for a Restaurant</h3>
     <form class="restaurantSearch">
         <div class="input-group mb-3">
             <input type="text" id="restaurant" class="form-control" placeholder="restaurant name" aria-label="restaurant name" aria-describedby="button-addon2">
@@ -14,6 +14,17 @@
     </form>
 
     <hr>
+
+    <!-- Search by Dish -->
+    <h3 id="searchHeader">Search for a Dish</h3>
+    <form class="dishSearch">
+        <div class="input-group mb-3">
+            <input type="text" id="dish" class="form-control" placeholder="dish name" aria-label="dish name" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-dark dishBtn" type="submit" id="button-addon2">Submit</button>
+            </div>
+        </div>
+    </form>
 
     <!-- Search by Cuisine Type -->
     {{!-- <form>
