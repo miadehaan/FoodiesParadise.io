@@ -13,7 +13,8 @@ $(function () {
             // mapLink.href = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`
             // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
             // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-            document.cookie = `coord={"lat": "${latitude}", "lon": "${longitude}"}`;
+            document.cookie = `lat=${latitude}`;
+            document.cookie = `lon=${longitude}`;
         }
 
         function error() {
@@ -66,7 +67,8 @@ function yelpAPI(latitude, longitude) {
     // const queryURL = "https://api.yelp.com/v3/businesses/latitude=" + latitude + "&longitude=" + longitude + "&key=" + apiKey; // include api key & geolocation coordinates
 
     // hard-code in lat/long for testing purposes:
-    const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + 45.4898865 + "&longitude=" + -122.8270407 + "&key=" + apiKey;
+    const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
+
 
     // $.ajax({
     //     url: queryURL,
