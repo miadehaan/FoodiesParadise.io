@@ -1,6 +1,7 @@
 
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
+    const axios = require("axios");
     function geoFindMe() {
         const status = document.querySelector('#status');
         const mapLink = document.querySelector('#map-link');
@@ -8,7 +9,7 @@ $(function () {
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-
+            yelpAPI(latitude,longitude);
             // status.textContent = '';
             // mapLink.href = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`
             // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
@@ -25,6 +26,7 @@ $(function () {
             alert('Geolocation is not supported by your browser');
         } else {
             console.log('Locating…');
+           
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }
@@ -112,7 +114,7 @@ function yelpAPI(latitude, longitude) {
     let yelpREST = axios.create({
         baseURL: queryURL,
         headers: {
-            Authorization: 'Bearer ${apiKey}',
+            Authorization: `Bearer ${apiKey}`,
             "Content-type": "application/json",
         },
     });
@@ -122,7 +124,8 @@ function yelpAPI(latitude, longitude) {
         params: {
             location: "portland"
         },
-    }).then( ({data}) => {
+    }).then( (data) => {
+        console.log(data);
         let { businesses } = data
         businesses.forEach((b) => {
             console.log("Name: ", b.name);

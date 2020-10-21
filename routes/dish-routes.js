@@ -9,9 +9,7 @@ var router = express.Router();
 
 
 router.get("/dish", function (req, res) {
-    db.dish.findAll({
-        include: [db.Post]
-    }).then(function (dbDish) {
+    db.dish.findAll().then(function (dbDish) {
         res.json(dbDish)
     });
 });
@@ -20,8 +18,8 @@ router.get("/dish/:id", function (req, res) {
     db.dish.findOne({
         where: {
             id: req.pramas.id
-        },
-        include: [db.Post]
+        }
+        
     }).then(function (dbDish) {
         res.json(dbDish);
     });
