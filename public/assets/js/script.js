@@ -95,6 +95,8 @@ function newReview() {
         event.preventDefault();
         // Send the GET request (html-routes.js)
         $.get("/reviewform").then(function() {
+            // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
+            
             console.log("The blank form is now being displayed");
         });
         
@@ -114,13 +116,13 @@ function newReview() {
     $(".submitReviewBtn").on("submit", function (event) {
         event.preventDefault();
 
-        let newReview = {
-            dish: $(".newDish").val().trim(),
-            resaturant: $(".newRestaurant").val().trim(),
-            rating: $(".newRating").val().trim(),
-            comments: $(".newComments").val().trim()
+        var newReview = {
+            dish: $("#newDish").val().trim(),
+            resaturant: $("#newRestaurant").val().trim(),
+            rating: $("#newRating").val().trim(),
+            comments: $("#newComments").val().trim()
         };
-        console.log(newReview);
+        console.log(newReview.dish);
 
         // Send the POST request (review-routes.js)
         $.post("/api/review", {
@@ -134,10 +136,10 @@ function newReview() {
         );
 
         // clear the form
-        $(".newDish").val("");
-        $(".newRestaurant").val("");
-        $(".newRating").val("");
-        $(".newComments").val("");
+        $("#newDish").val("");
+        $("#newRestaurant").val("");
+        $("#newRating").val("");
+        $("#newComments").val("");
         
     });
 }
