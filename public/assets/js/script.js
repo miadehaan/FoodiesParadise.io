@@ -1,7 +1,6 @@
 
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-    const axios = require("axios");
     function geoFindMe() {
         const status = document.querySelector('#status');
         const mapLink = document.querySelector('#map-link');
@@ -9,7 +8,7 @@ $(function () {
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-            yelpAPI(latitude,longitude);
+
             // status.textContent = '';
             // mapLink.href = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`
             // mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
@@ -25,7 +24,7 @@ $(function () {
         if (!navigator.geolocation) {
             alert('Geolocation is not supported by your browser');
         } else {
-            console.log('Locating…');
+            // console.log('Locating…');
         
             navigator.geolocation.getCurrentPosition(success, error);
         }
@@ -60,10 +59,10 @@ $(function () {
     });
 
 
-
-
     // Run geoFindMe on load
     geoFindMe();
+
+    newReview();
 });
 
 function getCookie(name) {
@@ -72,7 +71,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-// Send the 'userInput' to the resaturant route w/ POST method
+// Send the 'userInput' to the restaurant route w/ POST method
 function showRestaurants(restaurant) {
     $.post("/api/restaurant-routes", {
         restaurant: restaurant
@@ -89,47 +88,102 @@ function handleLoginErr(err) {
     $("#alert").fadeIn(500);
 }
 
+// When 'Add Review' button is click, the form is display for user to add a new dish review
+function newReview() {
+    // // Show the form for adding new dish review
+    $(".addReviewBtn").on("click", function (event) {
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        $.get("/reviewform").then(function() {
+            console.log("The blank form is now being displayed");
+        });
+        
+    });
+
+    // 
+    $(".backBtn").on("click", function (event) {
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        $.get("/").then(function() {
+            console.log("Back to main page");
+        });
+        
+    });
+
+    // Store the info the user submitted in the form
+    $(".submitReviewBtn").on("submit", function (event) {
+        event.preventDefault();
+
+        let newReview = {
+            dish: $(".newDish").val().trim(),
+            resaturant: $(".newRestaurant").val().trim(),
+            rating: $(".newRating").val().trim(),
+            comments: $(".newComments").val().trim()
+        };
+        console.log(newReview);
+
+        // Send the POST request (review-routes.js)
+        $.post("/api/review", {
+            type: "POST",
+            data: newReview
+        }).then(function() {
+            console.log("created new dish review");
+            // Reload the page to get the updated list
+            location.reload();
+            }
+        );
+
+        // clear the form
+        $(".newDish").val("");
+        $(".newRestaurant").val("");
+        $(".newRating").val("");
+        $(".newComments").val("");
+        
+    });
+}
+
+
 
 //---------------------------------------------------------------------------------------------
 // AJAX Call for YELP API
-function yelpAPI(latitude, longitude) {
-    // AJAX call to Yelp Fusion - REST API
-    // ******Note: at this time, the API does not return businesses without any reviews
-    // User geolocation (latitude, longitude) to pull up restaurants nearby
-    const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
+// function yelpAPI(latitude, longitude) {
+//     // AJAX call to Yelp Fusion - REST API
+//     // ******Note: at this time, the API does not return businesses without any reviews
+//     // User geolocation (latitude, longitude) to pull up restaurants nearby
+//     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
 
-    const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
-    console.log(queryURL);
+//     const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
+//     console.log(queryURL);
 
 
-    // $.ajax({
-    //     url: queryURL,
-    //     method: "GET"
-    // }).then(function (data) {
-    //     console.log("Here's the API data " + data);
-    // });
+//     // $.ajax({
+//     //     url: queryURL,
+//     //     method: "GET"
+//     // }).then(function (data) {
+//     //     console.log("Here's the API data " + data);
+//     // });
 
     
-    // Axios 
-    let yelpREST = axios.create({
-        baseURL: queryURL,
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-type": "application/json",
-        },
-    });
+//     // Axios 
+//     let yelpREST = axios.create({
+//         baseURL: queryURL,
+//         headers: {
+//             Authorization: `Bearer ${apiKey}`,
+//             "Content-type": "application/json",
+//         },
+//     });
 
-    // Try searching for businesses by location
-    yelpREST("/businesses/search", {
-        params: {
-            location: "portland"
-        },
-    }).then( (data) => {
-        console.log(data);
-        let { businesses } = data
-        businesses.forEach((b) => {
-            console.log("Name: ", b.name);
-        });
-    });
-}
+//     // Try searching for businesses by location
+//     yelpREST("/businesses/search", {
+//         params: {
+//             location: "portland"
+//         },
+//     }).then( (data) => {
+//         console.log(data);
+//         let { businesses } = data
+//         businesses.forEach((b) => {
+//             console.log("Name: ", b.name);
+//         });
+//     });
+// }
 

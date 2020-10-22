@@ -22,12 +22,12 @@ app.set("view engine", "handlebars");
 const htmlRoutes = require("./routes/html-routes");
 const dishRoutes = require("./routes/dish-routes");
 const restaurantRoutes = require('./routes/restaurant-routes')
-// const reviewRoutes = require("./routes/review-routes");
+const reviewRoutes = require("./routes/review-routes");
 
 app.use("/", htmlRoutes)
 app.use("/api", dishRoutes)
 app.use("/rest", restaurantRoutes)
-// app.use("/reviews", reviewRoutes)
+app.use("/reviews", reviewRoutes)
 
 
 // Set Handlebars.
