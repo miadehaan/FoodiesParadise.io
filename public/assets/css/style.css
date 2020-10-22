@@ -50,8 +50,8 @@ p.lead {
 }
 
 .searchHeader {
-  text-align: center;
-  /* padding-bottom: 10px; */
+  text-align: left;
+  padding-left: 10px;
 }
 
 .restaurantSearch, .dishSearch {
@@ -62,17 +62,6 @@ p.lead {
   margin-left: 20px;
 }
 
-/* #cuisineSubmit {
-  margin-top: 20px;
-  margin-left: 20px;
-} */
-
-/* On a smaller screen size - hide navbar & show the button to open it */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
 /* Main Content -----------------------------------------------------------------------------*/
 #main {
   margin-left: 300px; /* Same as the width of the sidebar */
@@ -81,6 +70,10 @@ p.lead {
   transition: margin-left .5s;
 
   /* border: 1px solid red; */
+}
+
+.addReviewBtn, .backBtn {
+  margin-bottom: 20px;
 }
 
 .restaurantInfo {
@@ -101,7 +94,7 @@ p.lead {
   border-radius: 8px;
 }
 
-.reviewBtn {
+.submitReviewBtn {
   margin-bottom: 20px;
 }
 

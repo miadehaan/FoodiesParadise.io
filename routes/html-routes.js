@@ -16,21 +16,24 @@ app.get("", function (req, res) {
     // res.sendFile(path.join(__dirname, "../views/index.html"));
 
     res.render("index");
+    // Display 10 restaurants based on geolocation when user first loads page
+
     // res.json({
     //     name: "testing"
     // })C:/Users/andrew/Documents/Coding Portfolio/FoodiesParadiseCopy.io/views/index.handlebars
 });
 
-// app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
-// });
+// Show the blank form for new reviews
+app.get("/reviewform", function (req, res) {
+    res.render("newdishform");
+    // res.sendFile(path.join(__dirname, "../views/newdishform"));
+
+});
 
 // app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
+
+//     // res.sendFile(path.join(__dirname, "../views/index"));
 // });
 
-// app.get("/index", function (req, res) {
-//     res.sendFile(path.join(__dirname, "../views/index"));
-// });
 
 module.exports = app;

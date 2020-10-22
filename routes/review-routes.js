@@ -27,7 +27,11 @@ router.get("/review/:id", function (req, res) {
     });
 });
 
-router.post("/review", function (req, res) {
+
+// store new review
+router.post("/api/review", function (req, res) {
+    console.log(req.body);
+
     db.review.create(req.body).then(function (dbReview) {
         res.json(dbReview);
     });
