@@ -9,21 +9,13 @@
   <div class="container">
     <div class="row">
       <!-- Display the info with the selected restaurant -->
-      <section class="col-12 restaurantInfo">
-        <h2>Restaurant</h2>
-        <p>restaurant info will go here</p>
-        {{!-- Insert partial --}}
-      </section>
+      {{> restaurantInfo }}
 
-      <section class="col-12 dishReviews">
-        <h2>Dish Reviews</h2>
-        <p>Reviewed Dishes will go here</p>
-      </section>
+      {{!-- Show dish reviews for selected restaurant --}}
+      {{> dishReviews}}
 
-      <section class="col-12 newReview">
-        <h2>Add New Review</h2>
-        <p>User can add a new dish review here and it will then get added to the reviewed dishes above</p>
-      </section>
+      {{!-- Form for user to add new dish reviews --}}
+      {{> newDishForm }}
 
     </div>
   </div>
