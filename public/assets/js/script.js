@@ -26,7 +26,7 @@ $(function () {
             alert('Geolocation is not supported by your browser');
         } else {
             console.log('Locating…');
-           
+        
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }
@@ -54,7 +54,7 @@ $(function () {
         console.log("The user searched for: " + userDish);
 
         //Clear input field
-        $("#restaurant").val("");
+        $("#dish").val("");
 
         // showDishes(userDish);
     });
