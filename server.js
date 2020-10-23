@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
 const app = express();
+const axios = require("axios");
 
 app.use(cookieParser())
 // Serve static content for the app from the "public" directory in the application directory.
@@ -26,7 +27,7 @@ const reviewRoutes = require("./routes/review-routes");
 app.use("/", htmlRoutes)
 app.use("/api", dishRoutes)
 app.use("/rest", restaurantRoutes)
-app.use("/rev", reviewRoutes)
+app.use("/reviews", reviewRoutes)
 
 
 // Set Handlebars.

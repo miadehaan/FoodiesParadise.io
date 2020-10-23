@@ -1,17 +1,17 @@
 module.exports=function (sequelize, Datatypes) {
-  var review = sequelize.define("Review", {
+  var review = sequelize.define("review", {
  
-    NAME: {
+    name: {
       type: Datatypes.STRING,
       allowNull: false,
       len: [64],
     },
-    COMMENTS: {
+    comments: {
       type: Datatypes.STRING,
       allowNull: false,
       len: [64],
     },
-    RATING: {
+    rating: {
       type: Datatypes.STRING,
       allowNull: false,
       len: [64],
@@ -19,7 +19,7 @@ module.exports=function (sequelize, Datatypes) {
   });
   
   review.associate = function (models) {
-    review.belongsTo(models.Dish, {
+    review.belongsTo(models.dish, {
       foreignKey: {
         allowNull: false,
       },

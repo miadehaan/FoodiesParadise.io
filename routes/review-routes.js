@@ -9,7 +9,7 @@ var router = express.Router();
 
 
 router.get("/review", function (req, res) {
-    db.Review.findAll({
+    db.review.findAll({
         include: [db.Post]
     }).then(function (dbReview) {
         res.json(dbReview)
@@ -17,7 +17,7 @@ router.get("/review", function (req, res) {
 });
 
 router.get("/review/:id", function (req, res) {
-    db.Review.findOne({
+    db.review.findOne({
         where: {
             id: req.pramas.id
         },
@@ -27,14 +27,18 @@ router.get("/review/:id", function (req, res) {
     });
 });
 
-router.post("/review", function (req, res) {
-    db.Review.create(req.body).then(function (dbReview) {
+
+// store new review
+router.post("/api/review", function (req, res) {
+    console.log(req.body);
+
+    db.review.create(req.body).then(function (dbReview) {
         res.json(dbReview);
     });
 });
 
 router.delete("/review/:id", function (req, res) {
-    db.Review.destroy({
+    db.review.destroy({
         where: {
             id: req.params.id
         }

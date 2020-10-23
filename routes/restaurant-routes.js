@@ -1,4 +1,4 @@
-const db = require("../models/restaurant.js");
+const db = require("../models");
 
 var express = require("express");
 const {
@@ -9,32 +9,30 @@ var router = express.Router();
 
 
 router.get("/restaurant", function (req, res) {
-    db.Restaurant.findAll({
-        include: [db.Post]
-    }).then(function (dbRestaurant) {
+    db.restaurant.findAll().then(function (dbRestaurant) {
         res.json(dbRestaurant)
     });
 });
 
 router.get("/restaurant/:id", function (req, res) {
-    db.Restaurant.findOne({
+    db.restaurant.findOne({
         where: {
             id: req.pramas.id
-        },
-        include: [db.Post]
+        }
+
     }).then(function (dbRestaurant) {
         res.json(dbRestaurant);
     });
 });
 
 router.post("/restaurant", function (req, res) {
-    db.Restaurant.create(req.body).then(function (dbRestaurant) {
+    db.restaurant.create(req.body).then(function (dbRestaurant) {
         res.json(dbRestaurant);
     });
 });
 
 router.delete("/restaurant/:id", function (req, res) {
-    db.Restaurant.destroy({
+    db.restaurant.destroy({
         where: {
             id: req.params.id
         }

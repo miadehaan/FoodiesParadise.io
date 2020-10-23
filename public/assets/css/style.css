@@ -12,7 +12,7 @@ body {
   margin-left: 300px; /* Same as the width of the sidebar */
   height: 400px;
   background: url("images/foodHeaderImg.jpg");
-  opacity: 80%;
+  opacity: 75%;
   background-size: cover;
 }
 
@@ -30,22 +30,13 @@ p.lead {
   color: white;
 }
 
-/* Side Nav Collapsable on smaller screens */
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
-
 /* Side Navbar/Search ----------------------------------------------------------------*/
-.sidenav {
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#sidebar {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 300px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -58,35 +49,17 @@ p.lead {
   padding-top: 20px;
 }
 
-#searchHeader, #cuisineHeader {
-  text-align: center;
-  padding-bottom: 30px;
+.searchHeader {
+  text-align: left;
+  padding-left: 10px;
 }
 
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #ffffff;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #ffa2a2;
-}
-
-#restaurantSearch {
+.restaurantSearch, .dishSearch {
   padding: 10px;
 }
 
 .cuisine {
   margin-left: 20px;
-}
-
-/* On a smaller screen size - hide navbar & show the button to open it */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
 }
 
 /* Main Content -----------------------------------------------------------------------------*/
@@ -97,6 +70,10 @@ p.lead {
   transition: margin-left .5s;
 
   /* border: 1px solid red; */
+}
+
+.addReviewBtn, .backBtn {
+  margin-bottom: 20px;
 }
 
 .restaurantInfo {
@@ -115,6 +92,10 @@ p.lead {
   margin-bottom: 100px;
   border: 1px solid grey;
   border-radius: 8px;
+}
+
+.submitReviewBtn {
+  margin-bottom: 20px;
 }
 
 
