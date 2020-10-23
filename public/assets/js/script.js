@@ -62,7 +62,7 @@ $(function () {
     // Run geoFindMe on load
     geoFindMe();
 
-    // newReview();
+    newReview();
 });
 
 function getCookie(name) {
@@ -89,7 +89,7 @@ function handleLoginErr(err) {
 }
 
 // When 'Add Review' button is click, the form is display for user to add a new dish review
-// function newReview() {
+function newReview() {
     // // Show the form for adding new dish review
     $(".addReviewBtn").on("click", function (event) {
         console.log("test");
@@ -113,7 +113,7 @@ function handleLoginErr(err) {
     });
 
     // Store the info the user submitted in the form
-    $(".submitReviewBtn").on("submit", function (event) {
+    $("#submitReviewBtn").on("click", function (event) {
         event.preventDefault();
 
         var newReview = {
@@ -122,7 +122,8 @@ function handleLoginErr(err) {
             rating: $("#newRating").val().trim(),
             comments: $("#newComments").val().trim()
         };
-        console.log(newReview.dish);
+
+        console.log("User's Dish: " + newReview.dish);
 
         // Send the POST request (review-routes.js)
         $.post("/api/review", {
@@ -142,7 +143,7 @@ function handleLoginErr(err) {
         $("#newComments").val("");
         
     });
-// }
+}
 
 
 
