@@ -61,7 +61,7 @@ $(function () {
     // Run geoFindMe on load
     geoFindMe();
 
-    // newReview();
+    newReview();
 });
 
 function getCookie(name) {
@@ -88,59 +88,67 @@ function handleLoginErr(err) {
 }
 
 // When 'Add Review' button is click, the form is display for user to add a new dish review
-// function newReview() {
-// // Show the form for adding new dish review
-$(".addReviewBtn").on("click", function (event) {
-    console.log("test");
-    event.preventDefault();
-    // Send the GET request (html-routes.js)
-    window.location = "/reviewform";
-    // $.get("/reviewform").then(function() {
-    //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
-
-    //     console.log("The blank form is now being displayed");
-    // });
-
-});
-
-// 
-$(".backBtn").on("click", function (event) {
-    event.preventDefault();
-    // Send the GET request (html-routes.js)
-    window.location = "/";
-
-});
-
-// Store the info the user submitted in the form
-$(".submitReviewBtn").on("submit", function (event) {
-    event.preventDefault();
-
-    var newReview = {
-        dish: $("#newDish").val().trim(),
-        resaturant: $("#newRestaurant").val().trim(),
-        rating: $("#newRating").val().trim(),
-        comments: $("#newComments").val().trim()
-    };
-    console.log(newReview.dish);
-
-    // Send the POST request (review-routes.js)
-    $.post("/api/review", {
-        type: "POST",
-        data: newReview
-    }).then(function () {
-        console.log("created new dish review");
-        // Reload the page to get the updated list
-        location.reload();
+function newReview() {
+    // // Show the form for adding new dish review
+    $(".addReviewBtn").on("click", function (event) {
+        console.log("test");
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        window.location="/reviewform";
+        // $.get("/reviewform").then(function() {
+        //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
+            
+        //     console.log("The blank form is now being displayed");
+        // });
+        
     });
 
-    // clear the form
-    $("#newDish").val("");
-    $("#newRestaurant").val("");
-    $("#newRating").val("");
-    $("#newComments").val("");
 
 });
-// }
+
+    // Store the info the user submitted in the form
+    $("#submitReviewBtn").on("click", function (event) {
+        event.preventDefault();
+
+        var newReview = {
+            dish: $("#newDish").val().trim(),
+            resaturant: $("#newRestaurant").val().trim(),
+            rating: $("#newRating").val().trim(),
+            comments: $("#newComments").val().trim()
+        };
+
+        console.log("User's Dish: " + newReview.dish);
+
+        // Send the POST request (review-routes.js)
+        $.post("/api/review", {
+            type: "POST",
+            data: newReview
+        }).then(function() {
+            console.log("created new dish review");
+            // Reload the page to get the updated list
+            location.reload();
+            }
+        );
+
+        // clear the form
+        $("#newDish").val("");
+        $("#newRestaurant").val("");
+        $("#newRating").val("");
+        $("#newComments").val("");
+        
+    });
+
+
+    // 
+    $(".backBtn").on("click", function (event) {
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        window.location = "/";
+
+    });
+
+}
+
 
 
 
