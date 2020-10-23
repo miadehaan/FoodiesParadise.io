@@ -62,7 +62,7 @@ $(function () {
     // Run geoFindMe on load
     geoFindMe();
 
-    newReview();
+    // newReview();
 });
 
 function getCookie(name) {
@@ -89,16 +89,18 @@ function handleLoginErr(err) {
 }
 
 // When 'Add Review' button is click, the form is display for user to add a new dish review
-function newReview() {
+// function newReview() {
     // // Show the form for adding new dish review
     $(".addReviewBtn").on("click", function (event) {
+        console.log("test");
         event.preventDefault();
         // Send the GET request (html-routes.js)
-        $.get("/reviewform").then(function() {
-            // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
+        window.location="/reviewform";
+        // $.get("/reviewform").then(function() {
+        //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
             
-            console.log("The blank form is now being displayed");
-        });
+        //     console.log("The blank form is now being displayed");
+        // });
         
     });
 
@@ -142,7 +144,7 @@ function newReview() {
         $("#newComments").val("");
         
     });
-}
+// }
 
 
 
