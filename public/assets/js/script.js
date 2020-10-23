@@ -103,8 +103,13 @@ function newReview() {
         
     });
 
-
-});
+    // 
+    $(".backBtn").on("click", function (event) {
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        window.location = "/";
+    
+    });
 
     // Store the info the user submitted in the form
     $("#submitReviewBtn").on("click", function (event) {
@@ -137,17 +142,10 @@ function newReview() {
         $("#newComments").val("");
         
     });
-
-
-    // 
-    $(".backBtn").on("click", function (event) {
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location = "/";
-
-    });
-
 }
+
+
+
 
 
 
