@@ -19,7 +19,7 @@ router.get("/dish/:id", function (req, res) {
         where: {
             id: req.pramas.id
         }
-        
+
     }).then(function (dbDish) {
         res.json(dbDish);
     });

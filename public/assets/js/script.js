@@ -1,4 +1,3 @@
-
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
     function geoFindMe() {
@@ -25,7 +24,7 @@ $(function () {
             alert('Geolocation is not supported by your browser');
         } else {
             // console.log('Locating…');
-        
+
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }
@@ -74,13 +73,13 @@ function getCookie(name) {
 // Send the 'userInput' to the restaurant route w/ POST method
 function showRestaurants(restaurant) {
     $.post("/api/restaurant-routes", {
-        restaurant: restaurant
-    })
-    .then(function(data) {
-        window.location.replace("/index");
-        // If there's an error, handle it by throwing up a bootstrap alert
-    })
-    .catch(handleLoginErr);
+            restaurant: restaurant
+        })
+        .then(function (data) {
+            window.location.replace("/index");
+            // If there's an error, handle it by throwing up a bootstrap alert
+        })
+        .catch(handleLoginErr);
 }
 
 function handleLoginErr(err) {
@@ -104,13 +103,8 @@ function newReview() {
         
     });
 
-    // 
-    $(".backBtn").on("click", function (event) {
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location="/";
-        
-    });
+
+});
 
     // Store the info the user submitted in the form
     $("#submitReviewBtn").on("click", function (event) {
@@ -143,7 +137,18 @@ function newReview() {
         $("#newComments").val("");
         
     });
+
+
+    // 
+    $(".backBtn").on("click", function (event) {
+        event.preventDefault();
+        // Send the GET request (html-routes.js)
+        window.location = "/";
+
+    });
+
 }
+
 
 
 
@@ -166,7 +171,7 @@ function newReview() {
 //     //     console.log("Here's the API data " + data);
 //     // });
 
-    
+
 //     // Axios 
 //     let yelpREST = axios.create({
 //         baseURL: queryURL,
@@ -189,4 +194,3 @@ function newReview() {
 //         });
 //     });
 // }
-

@@ -19,7 +19,6 @@ router.get("/restaurant/:id", function (req, res) {
         where: {
             id: req.pramas.id
         }
-        
     }).then(function (dbRestaurant) {
         res.json(dbRestaurant);
     });
