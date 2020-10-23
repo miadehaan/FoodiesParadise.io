@@ -1,4 +1,4 @@
-const db = require("../models/dish.js");
+const db = require("../models");
 
 var express = require("express");
 const {

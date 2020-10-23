@@ -1,4 +1,4 @@
-const db = require("../models/review.js");
+const db = require("../models");
 
 const express = require("express");
 const {
@@ -29,10 +29,16 @@ router.get("/review/:id", function (req, res) {
 
 
 // store new review
-router.post("/api/review", function (req, res) {
+router.post("/review", function (req, res) {
     console.log(req.body);
+    var newReview = {
+        name: req.body.name,
+        comments: req.body.comments,
+        rating: req.body.rating,
+        dishId: 1
+    };
 
-    db.review.create(req.body).then(function (dbReview) {
+    db.review.create(newReview).then(function (dbReview) {
         res.json(dbReview);
     });
 });
