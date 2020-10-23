@@ -108,9 +108,7 @@ function handleLoginErr(err) {
     $(".backBtn").on("click", function (event) {
         event.preventDefault();
         // Send the GET request (html-routes.js)
-        $.get("/").then(function() {
-            console.log("Back to main page");
-        });
+        window.location="/";
         
     });
 
