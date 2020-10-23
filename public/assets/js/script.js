@@ -60,7 +60,7 @@ $(function () {
 
     // Run geoFindMe on load
     geoFindMe();
-
+    getRestaurant();
     newReview();
 });
 
@@ -69,6 +69,45 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+function getRestaurant(){
+    let headers = new Headers();
+    const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
+    
+    headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
+    headers.append('Access-Control-Allow-Credentials', 'true');
+  
+    headers.append('Content-Type', 'application/json');
+    headers.append('GET', 'POST', 'OPTIONS');
+   
+  
+    
+    // var queryURL="";
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const queryURL =proxyurl+`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${getCookie("lat")}&longitude=${getCookie("lon")}`;
+     // site that doesn’t send Access-Control-*
+     console.log(queryURL);
+fetch(proxyurl + queryURL,{
+    // credentials:"include",
+    headers:{
+        "Access-Control-Allow-Origin":`http://localhost:8080`,
+        "Access-Control-Allow-Credentials":`true`,
+        "Content-Type":`application/json`,
+        "method":"GET",
+    "Authorization":`Bearer ${apiKey}`,  
+    }
+
+}) 
+.then(response => response.text())
+.then(contents => console.log(contents))
+.catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"))
+    
+  
+    }
+    
+   
+
 
 // Send the 'userInput' to the restaurant route w/ POST method
 function showRestaurants(restaurant) {
