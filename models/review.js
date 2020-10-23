@@ -1,3 +1,5 @@
+// const models = require("../models");
+
 module.exports=function (sequelize, Datatypes) {
   var review = sequelize.define("review", {
  
@@ -21,7 +23,7 @@ module.exports=function (sequelize, Datatypes) {
   review.associate = function (models) {
     review.belongsTo(models.dish, {
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
       },
     });
   };

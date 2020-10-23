@@ -116,24 +116,37 @@ function newReview() {
         event.preventDefault();
 
         var newReview = {
-            dish: $("#newDish").val().trim(),
-            resaturant: $("#newRestaurant").val().trim(),
+            name: $("#newDish").val().trim(),
+            comments: $("#newComments").val().trim(),
             rating: $("#newRating").val().trim(),
-            comments: $("#newComments").val().trim()
+            dishId: 1
         };
+        console.log(newReview);
 
-        console.log("User's Dish: " + newReview.dish);
-
-        // Send the POST request (review-routes.js)
-        $.post("/api/review", {
+        // Send the review info (review-routes.js)
+        $.ajax( {
+            url: "/reviews/review",
             type: "POST",
             data: newReview
         }).then(function() {
-            console.log("created new dish review");
+            console.log("created new review");
             // Reload the page to get the updated list
-            location.reload();
+            // location.reload();
             }
         );
+
+        // // Send just the DISH (dish-routes.js)
+        // $.ajax("/api/dish", {
+        //     type: "POST",
+        //     data: newReview.name
+        // }).then(function() {
+        //     console.log("created new dish");
+        //     // Reload the page to get the updated list
+        //     location.reload();
+        //     }
+        // );
+
+
 
         // clear the form
         $("#newDish").val("");
