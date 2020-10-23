@@ -1,4 +1,3 @@
-
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
     function geoFindMe() {
@@ -25,7 +24,7 @@ $(function () {
             alert('Geolocation is not supported by your browser');
         } else {
             // console.log('Locating…');
-        
+
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }
@@ -74,13 +73,13 @@ function getCookie(name) {
 // Send the 'userInput' to the restaurant route w/ POST method
 function showRestaurants(restaurant) {
     $.post("/api/restaurant-routes", {
-        restaurant: restaurant
-    })
-    .then(function(data) {
-        window.location.replace("/index");
-        // If there's an error, handle it by throwing up a bootstrap alert
-    })
-    .catch(handleLoginErr);
+            restaurant: restaurant
+        })
+        .then(function (data) {
+            window.location.replace("/index");
+            // If there's an error, handle it by throwing up a bootstrap alert
+        })
+        .catch(handleLoginErr);
 }
 
 function handleLoginErr(err) {
@@ -90,58 +89,57 @@ function handleLoginErr(err) {
 
 // When 'Add Review' button is click, the form is display for user to add a new dish review
 // function newReview() {
-    // // Show the form for adding new dish review
-    $(".addReviewBtn").on("click", function (event) {
-        console.log("test");
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location="/reviewform";
-        // $.get("/reviewform").then(function() {
-        //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
-            
-        //     console.log("The blank form is now being displayed");
-        // });
-        
+// // Show the form for adding new dish review
+$(".addReviewBtn").on("click", function (event) {
+    console.log("test");
+    event.preventDefault();
+    // Send the GET request (html-routes.js)
+    window.location = "/reviewform";
+    // $.get("/reviewform").then(function() {
+    //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
+
+    //     console.log("The blank form is now being displayed");
+    // });
+
+});
+
+// 
+$(".backBtn").on("click", function (event) {
+    event.preventDefault();
+    // Send the GET request (html-routes.js)
+    window.location = "/";
+
+});
+
+// Store the info the user submitted in the form
+$(".submitReviewBtn").on("submit", function (event) {
+    event.preventDefault();
+
+    var newReview = {
+        dish: $("#newDish").val().trim(),
+        resaturant: $("#newRestaurant").val().trim(),
+        rating: $("#newRating").val().trim(),
+        comments: $("#newComments").val().trim()
+    };
+    console.log(newReview.dish);
+
+    // Send the POST request (review-routes.js)
+    $.post("/api/review", {
+        type: "POST",
+        data: newReview
+    }).then(function () {
+        console.log("created new dish review");
+        // Reload the page to get the updated list
+        location.reload();
     });
 
-    // 
-    $(".backBtn").on("click", function (event) {
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location="/";
-        
-    });
+    // clear the form
+    $("#newDish").val("");
+    $("#newRestaurant").val("");
+    $("#newRating").val("");
+    $("#newComments").val("");
 
-    // Store the info the user submitted in the form
-    $(".submitReviewBtn").on("submit", function (event) {
-        event.preventDefault();
-
-        var newReview = {
-            dish: $("#newDish").val().trim(),
-            resaturant: $("#newRestaurant").val().trim(),
-            rating: $("#newRating").val().trim(),
-            comments: $("#newComments").val().trim()
-        };
-        console.log(newReview.dish);
-
-        // Send the POST request (review-routes.js)
-        $.post("/api/review", {
-            type: "POST",
-            data: newReview
-        }).then(function() {
-            console.log("created new dish review");
-            // Reload the page to get the updated list
-            location.reload();
-            }
-        );
-
-        // clear the form
-        $("#newDish").val("");
-        $("#newRestaurant").val("");
-        $("#newRating").val("");
-        $("#newComments").val("");
-        
-    });
+});
 // }
 
 
@@ -165,7 +163,7 @@ function handleLoginErr(err) {
 //     //     console.log("Here's the API data " + data);
 //     // });
 
-    
+
 //     // Axios 
 //     let yelpREST = axios.create({
 //         baseURL: queryURL,
@@ -188,4 +186,3 @@ function handleLoginErr(err) {
 //         });
 //     });
 // }
-
