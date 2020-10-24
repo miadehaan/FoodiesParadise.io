@@ -30,19 +30,41 @@ router.get("/review/name/:restaurantName", function (req, res) {
     console.log(req.body);
     let restaurantName = req.params.restaurantName;
 
-    db.restaurant.findOne({
-        where: {
+    db.restaurant.findOrCreate({
+        where:{
+            name: restaurantName
+        }, 
+        defaults: {
             name: restaurantName
         }
-    }).then(function (restaurant) {
+    }).then(function(restaurant){
+        var created = restaurant[1];
+        console.log(`Created ${created}`);
+        restaurantInfo = restaurant[0]; //new or found
         db.dish.findAll({
             where: {
-                RestaurantId: restaurant.id
+                RestaurantId: restaurantInfo.id
             }
         }).then(function (dishs) {
             res.render("newdishform", {"dishs": JSON.parse(JSON.stringify(dishs)), "restaurantName": restaurantName})
         })
+    }).catch(function(err) {
+        console.error(err)
     });
+
+    // db.restaurant.findOne({
+    //     where: {
+    //         name: restaurantName
+    //     }
+    // }).then(function (restaurant) {
+    //     db.dish.findAll({
+    //         where: {
+    //             RestaurantId: restaurant.id
+    //         }
+    //     }).then(function (dishs) {
+    //         res.render("newdishform", {"dishs": JSON.parse(JSON.stringify(dishs)), "restaurantName": restaurantName})
+    //     })
+    // });
 });
 
 
@@ -56,23 +78,35 @@ router.post("/review/name/:restaurantName", function (req, res) {
         where: {
             name: restaurantName
         }
-    }).then(function (dbReview) {
-        db.dish.findOne({
+    }).then(function (restaurant) {      
+        let dish;
+
+        if (req.body.dish == "CREATENEWDISH") {
+            dish = [0,req.body.newDishName]
+        } else {
+            dish = req.body.dish.split("|")
+        }
+
+        db.dish.findOrCreate({
             where: {
-                id: dishId
+                id: dish[0]
+            }, 
+            defaults: {
+                name: dish[1],
+                restaurantId: restaurant.id
             }
         }).then(function (dishData) {
-            let dish = req.body.dish.split("|")
-            console.log(dish)
+            let newDishData = dishData[0];
+            
             var newReview = {
-                name: dish[1],
+                name: newDishData.name,
                 comments: req.body.comment,
                 rating: req.body.rating,
-                dishId: parseInt(dish[0])
+                dishId: newDishData.id
             };
 
             db.review.create(newReview).then(function (dbReview) {
-                res.json(dbReview);
+                res.redirect('/');
             });
         })
 

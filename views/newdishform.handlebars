@@ -21,10 +21,15 @@
                         {{!-- <label for="newDish">Dish name</label> --}}
                         {{!-- <input type="text" id="newDish" class="form-control" placeholder="Pizza"> --}}
                         <select id="newDish" class="form-control" name="dish">
+                            <option value="CREATENEWDISH">Create a new dish in the text box below</option>
                             {{#each dishs}}
                             <option value="{{id}}|{{name}}">{{name}}</option>
                             {{/each}}
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newDishName">New Dish Name:</label>
+                        <input type="text" id="newDishName" name="newDishName">
                     </div>
                     <div class="form-group">
                         <label for="newRestaurant">Restaurant name</label>
