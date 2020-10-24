@@ -62,7 +62,6 @@ $(function () {
     // Run geoFindMe on load
     geoFindMe();
     getRestaurant();
-    newReview();
 });
 
 function getCookie(name) {
@@ -109,7 +108,7 @@ function getRestaurant(){
         let business = data.businesses;
 
         for(var i=0; i < 10; i++) {
-            let name = business[i].alias;
+            let name = business[i].name;
             console.log(name); // get the restaurant's name
 
             $("#restaurantsNearby").append(
@@ -145,20 +144,20 @@ function handleLoginErr(err) {
 }
 
 // When 'Add Review' button is click, the form is display for user to add a new dish review
-function newReview() {
-    // // Show the form for adding new dish review
-    $(".addReviewBtn").on("click", function (event) {
-        console.log("test");
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location="/reviewform";
-        // $.get("/reviewform").then(function() {
-        //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
+// function newReview() {
+//     // // Show the form for adding new dish review
+//     $(".addReviewBtn").on("click", function (event) {
+//         console.log("test");
+//         event.preventDefault();
+//         // Send the GET request (html-routes.js)
+//         window.location="/reviewform";
+//         // $.get("/reviewform").then(function() {
+//         //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
             
-        //     console.log("The blank form is now being displayed");
-        // });
+//         //     console.log("The blank form is now being displayed");
+//         // });
         
-    });
+//     });
 
     // 
     $(".backBtn").on("click", function (event) {
@@ -209,7 +208,7 @@ function newReview() {
         $("#newComments").val("");
         
     });
-}
+
 
 // $("#restaurantsNearby").on("click", function (e) {
 //     let text = e.target;
