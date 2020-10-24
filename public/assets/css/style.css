@@ -5,7 +5,7 @@
 
 body {
   font-family: 'Oswald', sans-serif;
-  padding-bottom: 100px;
+  padding-bottom: 300px;
 }
  /* Top Header ------------------------------------------------------------------------------- */
 .jumbotron {
@@ -74,6 +74,19 @@ p.lead {
 
 .addReviewBtn, .backBtn {
   margin-bottom: 20px;
+}
+
+#restaurantList {
+  /* border: 1px solid red; */
+}
+
+#restaurantsNearby {
+  padding: 30px;
+}
+
+/* For each individual restaurant on list of 10 */
+.restaurantItem {
+  padding: 30px;
 }
 
 .restaurantInfo {

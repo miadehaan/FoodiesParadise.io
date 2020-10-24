@@ -16,12 +16,16 @@
       <div class="col-md-2"></div>
 
 
-      <!-- Display the info with the selected restaurant -->
+      <!-- By default, show 10 restaurants nearby based on user geolocation -->
       {{!-- {{> restaurantInfo }} --}}
+      <main id="restaurantList" class="col-12">
 
-      {{!-- Show dish reviews for selected restaurant --}}
-      {{!-- {{> dishReviews}} --}}
+        <h2>Restaurants Near You</h2>
+        <hr>
 
+        {{> restaurantsNearby }}
+
+      </main>
 
     </div>
   </div>

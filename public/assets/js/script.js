@@ -30,7 +30,6 @@ $(function () {
     }
 
 
-
     // Get user inputs (restuarant and/or cuisine type selected)
     $(".restaurantSearch").on("submit", function (event) {
         event.preventDefault();
@@ -41,7 +40,7 @@ $(function () {
         //Clear input field
         $("#restaurant").val("");
 
-        showRestaurants(userRestaurant);
+        showRestaurant(userRestaurant);
     });
 
     // Get user inputs (restuarant and/or cuisine type selected)
@@ -56,7 +55,6 @@ $(function () {
 
         // showDishes(userDish);
     });
-
 
     // Run geoFindMe on load
     geoFindMe();
@@ -76,41 +74,59 @@ function getRestaurant(){
     
     headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
     headers.append('Access-Control-Allow-Credentials', 'true');
-  
+
     headers.append('Content-Type', 'application/json');
     headers.append('GET', 'POST', 'OPTIONS');
-   
-  
-    
-    // var queryURL="";
+
+    let lat = getCookie("lat");
+    let lon = getCookie("lon");
 
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const queryURL =proxyurl+`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${getCookie("lat")}&longitude=${getCookie("lon")}`;
+    const queryURL =proxyurl+`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`;
      // site that doesn’t send Access-Control-*
-     console.log(queryURL);
-fetch(proxyurl + queryURL,{
-    // credentials:"include",
-    headers:{
-        "Access-Control-Allow-Origin":`http://localhost:8080`,
-        "Access-Control-Allow-Credentials":`true`,
-        "Content-Type":`application/json`,
-        "method":"GET",
-    "Authorization":`Bearer ${apiKey}`,  
-    }
+    // console.log(queryURL);
 
-}) 
-.then(response => response.text())
-.then(contents => console.log(contents))
-.catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"))
-    
-  
-    }
-    
-   
+    fetch(proxyurl + queryURL,{
+        // credentials:"include",
+        headers:{
+            "Access-Control-Allow-Origin":`http://localhost:8080`,
+            "Access-Control-Allow-Credentials":`true`,
+            "Content-Type":`application/json`,
+            "method":"GET",
+        "Authorization":`Bearer ${apiKey}`,  
+        }
+    }) 
+    .then(response => response.json())
+    // .then(contents => console.log(contents))
+    .then( (data) => {
+        // Show 10 restaurants nearby based on user Geolocation (index / html-routes)
+        //  Loop through object and display first 10  'businesses'
+        // console.log(data);
+
+        let business = data.businesses;
+
+        for(var i=0; i < 10; i++) {
+            let name = business[i].alias;
+            console.log(name); // get the restaurant's name
+
+            $("#restaurantsNearby").append( $("<li>")
+                .append( $("<h4>")
+                    .text(name)
+                    .addClass("restaurantItem") 
+                )
+            );
+        }
+
+
+
+    })
+    .catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"));
+
+}
 
 
 // Send the 'userInput' to the restaurant route w/ POST method
-function showRestaurants(restaurant) {
+function showRestaurant(restaurant) {
     $.post("/api/restaurant-routes", {
             restaurant: restaurant
         })
@@ -169,10 +185,7 @@ function newReview() {
             data: newReview
         }).then(function() {
             console.log("created new review");
-            // Reload the page to get the updated list
-            // location.reload();
-            }
-        );
+        });
 
         // // Send just the DISH (dish-routes.js)
         // $.ajax("/api/dish", {
@@ -186,7 +199,6 @@ function newReview() {
         // );
 
 
-
         // clear the form
         $("#newDish").val("");
         $("#newRestaurant").val("");
@@ -195,52 +207,3 @@ function newReview() {
         
     });
 }
-
-
-
-
-
-
-
-//---------------------------------------------------------------------------------------------
-// AJAX Call for YELP API
-// function yelpAPI(latitude, longitude) {
-//     // AJAX call to Yelp Fusion - REST API
-//     // ******Note: at this time, the API does not return businesses without any reviews
-//     // User geolocation (latitude, longitude) to pull up restaurants nearby
-//     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
-
-//     const queryURL = "https://api.yelp.com/v3/businesses/search?latitude=" + getCookie("lat") + "&longitude=" + getCookie("lon") + "&key=" + apiKey;
-//     console.log(queryURL);
-
-
-//     // $.ajax({
-//     //     url: queryURL,
-//     //     method: "GET"
-//     // }).then(function (data) {
-//     //     console.log("Here's the API data " + data);
-//     // });
-
-
-//     // Axios 
-//     let yelpREST = axios.create({
-//         baseURL: queryURL,
-//         headers: {
-//             Authorization: `Bearer ${apiKey}`,
-//             "Content-type": "application/json",
-//         },
-//     });
-
-//     // Try searching for businesses by location
-//     yelpREST("/businesses/search", {
-//         params: {
-//             location: "portland"
-//         },
-//     }).then( (data) => {
-//         console.log(data);
-//         let { businesses } = data
-//         businesses.forEach((b) => {
-//             console.log("Name: ", b.name);
-//         });
-//     });
-// }
