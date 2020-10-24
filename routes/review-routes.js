@@ -46,7 +46,7 @@ router.get("/review/name/:restaurantName", function (req, res) {
                 RestaurantId: restaurantInfo.id
             }
         }).then(function (dishs) {
-            res.render("newdishform", {"dishs": JSON.parse(JSON.stringify(dishs)), "restaurantName": restaurantName})
+            res.render("newdishform", {style: 'assets\css\style.css', "dishs": JSON.parse(JSON.stringify(dishs)), "restaurantName": restaurantName})
         })
     }).catch(function(err) {
         console.error(err)
