@@ -134,7 +134,7 @@ function showRestaurant(restaurant) {
             window.location.replace("/index");
             // If there's an error, handle it by throwing up a bootstrap alert
         })
-        .catch(handleLoginErr);
+        .fail(handleLoginErr);
 }
 
 function handleLoginErr(err) {
