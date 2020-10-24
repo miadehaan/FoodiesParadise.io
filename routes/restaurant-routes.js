@@ -5,12 +5,32 @@ const {
     Router
 } = require("express");
 
+const sequelize = require("sequelize");
+
 var router = express.Router();
 
 
 router.get("/restaurant", function (req, res) {
     db.restaurant.findAll().then(function (dbRestaurant) {
         res.json(dbRestaurant)
+    });
+});
+
+router.get("/restaurant/name", function (req, res) {
+    let query = req.query.q;
+    let lmt = req.query.limit;
+
+    console.log(`${query}  ${lmt}`)
+
+    db.restaurant.findAll({
+        limit: parseInt(lmt),
+        where: {
+            name: sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), 'LIKE', '%' + query + '%')
+        }
+    }).then(function(restaurants){
+        return res.json(restaurants);
+    }).catch(function(error){
+        console.log(error);
     });
 });
 
