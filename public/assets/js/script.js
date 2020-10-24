@@ -35,12 +35,15 @@ $(function () {
         event.preventDefault();
 
         let userRestaurant = $("#restaurant").val().trim();
+        let tempLimit = 10;
         console.log("The user searched for: " + userRestaurant);
-
+        let url = `/rest/restaurant/name?q=${userRestaurant}&limit=${tempLimit}`;
         //Clear input field
         $("#restaurant").val("");
 
-        showRestaurant(userRestaurant);
+        window.location = url;
+
+        // showRestaurant(userRestaurant);
     });
 
     // Get user inputs (restuarant and/or cuisine type selected)
@@ -109,18 +112,17 @@ function getRestaurant(){
             let name = business[i].alias;
             console.log(name); // get the restaurant's name
 
-            $("#restaurantsNearby").append( $("<li>")
-                .append( $("<h4>")
-                    .text(name)
-                    .addClass("restaurantItem") 
-                )
+            $("#restaurantsNearby").append(
+                $("<li>")
+                .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>`)
+                    // .text(name)
+                    // .addClass("restaurantItem") 
             );
         }
 
 
 
-    })
-    .catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"));
+    }).catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"));
 
 }
 
@@ -174,7 +176,8 @@ function newReview() {
             name: $("#newDish").val().trim(),
             comments: $("#newComments").val().trim(),
             rating: $("#newRating").val().trim(),
-            dishId: 1
+            dishName: $("#dishName").val().trim(),
+            restaurantName: $("#restaurantName").val().trim()
         };
         console.log(newReview);
 
@@ -207,3 +210,8 @@ function newReview() {
         
     });
 }
+
+// $("#restaurantsNearby").on("click", function (e) {
+//     let text = e.target;
+//     window.location = `/reviews/review/${text}`
+// });
