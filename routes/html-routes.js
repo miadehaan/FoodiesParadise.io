@@ -30,6 +30,11 @@ app.get("/reviewform", function (req, res) {
 
 });
 
+app.get("/reviewhistory", function (req, res) {
+    res.render("reviews");
+
+});
+
 // app.get("/index", function (req, res) {
 
 //     // res.sendFile(path.join(__dirname, "../views/index"));
