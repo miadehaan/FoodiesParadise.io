@@ -168,46 +168,46 @@ function handleLoginErr(err) {
     });
 
     // Store the info the user submitted in the form
-    $("#submitReviewBtn").on("click", function (event) {
-        event.preventDefault();
+    // $("#submitReviewBtn").on("click", function (event) {
+    //     event.preventDefault();
 
-        var newReview = {
-            name: $("#newDish").val().trim(),
-            comments: $("#newComments").val().trim(),
-            rating: $("#newRating").val().trim(),
-            dishName: $("#dishName").val().trim(),
-            restaurantName: $("#restaurantName").val().trim()
-        };
-        console.log(newReview);
+    //     var newReview = {
+    //         name: $("#newDish").val().trim(),
+    //         comments: $("#newComments").val().trim(),
+    //         rating: $("#newRating").val().trim(),
+    //         dishName: $("#dishName").val().trim(),
+    //         restaurantName: $("#restaurantName").val().trim()
+    //     };
+    //     console.log(newReview);
 
-        // Send the review info (review-routes.js)
-        $.ajax( {
-            url: "/reviews/review",
-            type: "POST",
-            data: newReview
-        }).then(function() {
-            console.log("created new review");
-        });
+    //     // Send the review info (review-routes.js)
+    //     $.ajax( {
+    //         url: "/reviews/review",
+    //         type: "POST",
+    //         data: newReview
+    //     }).then(function() {
+    //         console.log("created new review");
+    //     });
 
-        // // Send just the DISH (dish-routes.js)
-        // $.ajax("/api/dish", {
-        //     type: "POST",
-        //     data: newReview.name
-        // }).then(function() {
-        //     console.log("created new dish");
-        //     // Reload the page to get the updated list
-        //     location.reload();
-        //     }
-        // );
+    //     // // Send just the DISH (dish-routes.js)
+    //     // $.ajax("/api/dish", {
+    //     //     type: "POST",
+    //     //     data: newReview.name
+    //     // }).then(function() {
+    //     //     console.log("created new dish");
+    //     //     // Reload the page to get the updated list
+    //     //     location.reload();
+    //     //     }
+    //     // );
 
 
-        // clear the form
-        $("#newDish").val("");
-        $("#newRestaurant").val("");
-        $("#newRating").val("");
-        $("#newComments").val("");
+    //     // clear the form
+    //     $("#newDish").val("");
+    //     $("#newRestaurant").val("");
+    //     $("#newRating").val("");
+    //     $("#newComments").val("");
         
-    });
+    // });
 
 
 // $("#restaurantsNearby").on("click", function (e) {
