@@ -1,5 +1,5 @@
 const db = require("../models");
-
+const sequelize = require("sequelize");
 const express = require("express");
 const {
     Router
@@ -7,11 +7,31 @@ const {
 
 var router = express.Router();
 
+// Pull dishes from database and show on page
+router.get("/reviewhistory/name/:restaurantName", function (req, res) {
+    // console.log(req.body);
+    let restaurantName = req.params.restaurantName;
+    console.log(restaurantName); // pulls up the restaurant name that was selected
 
-router.get("/review", function (req, res) {
-    db.review.findAll().then(function (dbReview) {
-        res.json(dbReview)
+    db.review.findAll({
+        where:{
+            name: restaurantName
+        }, 
+        defaults: {
+            name: restaurantName
+        }
+    })
+    .then(function (dbReview) {
+        console.log(dbReview); // should show an array of all the review records
+
+        // res.json(dbReview); //show the reviews
+        res.render("reviews"); // rendet the html
+    })
+    .catch(function(err) {
+        console.error(err)
     });
+
+
 });
 
 router.get("/review/id/:id", function (req, res) {
@@ -27,7 +47,7 @@ router.get("/review/id/:id", function (req, res) {
 
 // store new review
 router.get("/review/name/:restaurantName", function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     let restaurantName = req.params.restaurantName;
 
     db.restaurant.findOrCreate({

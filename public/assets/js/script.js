@@ -115,7 +115,7 @@ function getRestaurant(){
             $("#restaurantsNearby").append(
                 $("<li>")
                 .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>
-                    <a href="/reviewhistory" id="reviewBtn">Review Button</a>`)
+                    <a href="/reviews/reviewhistory/name/${name}" id="reviewBtn">Review Button</a>`)
                     // .text(name)
                     // .addClass("restaurantItem") 
             );
