@@ -62,6 +62,7 @@ $(function () {
     // Run geoFindMe on load
     geoFindMe();
     getRestaurant();
+    // viewReviews();
 });
 
 function getCookie(name) {
@@ -109,14 +110,17 @@ function getRestaurant(){
 
         for(var i=0; i < 10; i++) {
             let name = business[i].name;
-            console.log(name); // get the restaurant's name
+            // console.log(name); // get the restaurant's name
 
             $("#restaurantsNearby").append(
                 $("<li>")
-                .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>`)
+                .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>
+                    <a href="/reviews/reviewHistory/name/${name}" class="reviewBtn">Review Button</a>`)
                     // .text(name)
                     // .addClass("restaurantItem") 
             );
+
+
         }
 
 
@@ -124,6 +128,32 @@ function getRestaurant(){
     }).catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"));
 
 }
+
+// function viewReviews() {
+    // Show reviews when button is clicked
+    // $(".reviewBtn").on("click", function() {
+    //     const name = $(this).attr("data-name");
+        
+    //     console.log("This is a test");
+    //     // window.location("/reviewHistory");
+
+    //     $.ajax({
+    //         url: `/reviews/reviewHistory/name/${name}`,
+    //         type: "GET",
+    //     }).then(function(wooho) {
+    //         console.log(wooho);
+    //     })
+    //     // $.ajax( {
+    //     //     url: "/reviews/review",
+    //     //     type: "POST",
+    //     //     data: newReview
+    //     // }).then(function() {
+    //     //     console.log("created new review");
+    //     // });
+
+    // });
+// }
+
 
 
 // Send the 'userInput' to the restaurant route w/ POST method

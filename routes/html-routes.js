@@ -26,7 +26,11 @@ app.get("", function (req, res) {
 // Show the blank form for new reviews
 app.get("/reviewform", function (req, res) {
     res.render("newdishform");
-    // res.sendFile(path.join(__dirname, "../views/newdishform"));
+
+});
+
+app.get("/reviewHistory", function (req, res) {
+    res.render("reviews");
 
 });
 

@@ -5,9 +5,19 @@ module.exports = function (sequelize, Datatypes) {
       allowNull: false,
       len: [64],
     },
-
   });
-
+  dish.associate = function (models) {
+    dish.hasMany(models.review, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+    dish.belongsTo(models.restaurant, {
+      foreignKey: {
+        allowNull: true,
+      },
+    });
+  };
 
   return dish;
 };
