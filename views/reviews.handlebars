@@ -1,4 +1,8 @@
 <main class="showAllReviews">
+
+
+
+
     <div class="container">
         <div class="row">
 
@@ -15,20 +19,82 @@
             <section class="col-lg-8 col-12">
                 <h2>Dish Reviews</h2>
                 <hr>
+            <div class="form-group" style="padding-left: 20px;"> 
+                {{#if dishReviews}}
+                {{#each dishReviews}}
 
-                {{!-- Show all dish reviews for specified restaurant --}}
+                <ul>
+                <li>
+                    <div>
+                       <h3>DishName: {{name}}</h3>
+                        <ol>
+                       {{#each reviews}}
+                      
+                           <li>
+                       rating : {{rating}}
+                       <br>
+                       Comments :{{comments}}
+                       <br>
+                       {{/each}}
+                       </li>
+                       </ol>
+                    </div>
 
-                {{!-- <ul>
-                    {{#each dish}}
-                        <li> {{ }} </li>
-                    {{/each}}
-                </ul> --}}
+                </li>
+                {{/each}}
+                </ul>
+            {{else}}
+            <h3> No dishes </h3>
+             {{/if}}
+                </div>
+                </section> 
+                {{!-- Show all dish reviews for specified restaurant
+
+                <form action="" id="histReview" method="GET">
+                    <div class="form-group" name="dish">
+                <label for="newDish">Dish name</label>
+                <input type="text" id="newDish" class="form-control" placeholder="Pizza">
+                <ul>
+                            {{#each dishReviews}}
+                            <li>
+                                {{!-- {{name}}
+                                {{!-- {{comments}}
+                                {{!-- {{rating}} 
+                            </li>
+                            {{!-- {{/each}} 
+                        </ul>
+                    </div>
+                    </form> 
+                {{!-- <div class="form-group">
+                        <label for="newDishName">New Dish Name:</label>
+                        <input type="text" id="newDishName" name="newDishName">
+                    </div> --}}
+                {{!-- <div class="form-group">
+                        <label for="newRestaurant">Restaurant name</label>
+                        <input type="text" id="newRestaurant" value="{{restaurantName}}" class="form-control"
+                            placeholder="Sizzle Pie">
+                    </div> --}}
+                {{!-- <div class="form-group">
+                        <label for="newRating">Rate the Dish (1=Awful; 5=Best Dish Ever)</label>
+                        <select id="newRating" class="form-control" name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div> --}}
+                {{!-- <div class="form-group">
+                        <label for="newComments">Write your review</label>
+                        <textarea class="form-control" id="newComments" rows="3" name="comment"></textarea>
+                    </div> --}}
+
+                {{!-- <button class="col-3 btn btn-dark" type="submit" id="submitReviewBtn">Submit Review</button> --}}
+                {{!-- </form> --}}
 
 
 
-
-
-            <div class="col-lg-2"></div>
+                {{!-- <div class="col-lg-2"></div> --}}
         </div>
     </div>
 </main>

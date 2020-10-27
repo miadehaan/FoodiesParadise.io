@@ -29,7 +29,7 @@ app.get("/reviewform", function (req, res) {
 
 });
 
-app.get("/reviewhistory", function (req, res) {
+app.get("/reviewHistory", function (req, res) {
     res.render("reviews");
 
 });

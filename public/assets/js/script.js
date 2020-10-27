@@ -115,7 +115,7 @@ function getRestaurant(){
             $("#restaurantsNearby").append(
                 $("<li>")
                 .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>
-                    <a href="/reviews/reviewhistory/name/${name}" id="reviewBtn">Review Button</a>`)
+                    <a href="/reviews/reviewHistory/name/${name}" class="reviewBtn">Review Button</a>`)
                     // .text(name)
                     // .addClass("restaurantItem") 
             );
@@ -131,22 +131,27 @@ function getRestaurant(){
 
 // function viewReviews() {
     // Show reviews when button is clicked
-    $("#reviewBtn").on("click", function (event) {
-        event.preventDefault();
+    // $(".reviewBtn").on("click", function() {
+    //     const name = $(this).attr("data-name");
         
-        console.log("This is a test");
+    //     console.log("This is a test");
+    //     // window.location("/reviewHistory");
 
-        // window.location("/reviewform");
+    //     $.ajax({
+    //         url: `/reviews/reviewHistory/name/${name}`,
+    //         type: "GET",
+    //     }).then(function(wooho) {
+    //         console.log(wooho);
+    //     })
+    //     // $.ajax( {
+    //     //     url: "/reviews/review",
+    //     //     type: "POST",
+    //     //     data: newReview
+    //     // }).then(function() {
+    //     //     console.log("created new review");
+    //     // });
 
-        // $.ajax( {
-        //     url: "/reviews/review",
-        //     type: "POST",
-        //     data: newReview
-        // }).then(function() {
-        //     console.log("created new review");
-        // });
-
-    });
+    // });
 // }
 
 
