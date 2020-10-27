@@ -12,7 +12,7 @@ var app = express.Router();
 // })
 
 // loads the primary HTML page 
-app.get("", function (req, res) {
+app.get("/", function (req, res) {
     // res.sendFile(path.join(__dirname, "../views/index.html"));
 
     res.render("index");
