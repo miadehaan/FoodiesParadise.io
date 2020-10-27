@@ -12,11 +12,11 @@ module.exports = function (sequelize, Datatypes) {
         allowNull: false,
       },
     });
-    dish.belongsTo(models.restaurant, {
-      foreignKey: {
-        allowNull: true,
-      },
-    });
+  //   dish.belongsTo(models.restaurant, {
+  //     foreignKey: {
+  //       allowNull: true,
+  //     },
+  //   });
   };
 
   return dish;
