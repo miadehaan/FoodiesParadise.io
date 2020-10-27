@@ -42,7 +42,7 @@ app.set("view engine", "handlebars");
 // Start our server so that it can begin listening to client requests.
 
 db.sequelize.sync({
-  force: false
+  force: true
 }).then(function () {
   app.listen(PORT, function () {
     // Log (server-side) when our server has started
