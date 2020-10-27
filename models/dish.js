@@ -14,7 +14,7 @@ module.exports = function (sequelize, Datatypes) {
     });
     dish.belongsTo(models.restaurant, {
       foreignKey: {
-        allowNull: true,
+        allowNull: false,
       },
     });
   };
