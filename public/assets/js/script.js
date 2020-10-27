@@ -104,22 +104,44 @@ function getRestaurant(){
     .then( (data) => {
         // Show 10 restaurants nearby based on user Geolocation (index / html-routes)
         //  Loop through object and display first 10  'businesses'
-        // console.log(data);
+        console.log(data);
 
         let business = data.businesses;
 
         for(var i=0; i < 10; i++) {
-            let name = business[i].name;
             // console.log(name); // get the restaurant's name
+            let name = business[i].name;
+            let address = [business[i].location.display_address[0]];
+            let city = [business[i].location.display_address[1]];
+            let category = business[i].categories[0].title;
+            let pricing = business[i].price;
+            let rating  = business[i].rating;
+            
 
             $("#restaurantsNearby").append(
-                $("<li>")
-                .append(`<a href="/reviews/review/name/${name}"><h4 class="restaurantItem">Click to rate: ${name}</h4></a>
-                    <a href="/reviews/reviewHistory/name/${name}" class="reviewBtn">Review Button</a>`)
-                    // .text(name)
-                    // .addClass("restaurantItem") 
-            );
+                $("<li>").append(`
+                <div class="container listItem">
+                <div class="row">
+                
+                    <div class="col-md-8 col-12"> <h4 class="restaurantItem">${name}   </h4></div>
+                    
+                    <div class="col-md-4 col-12"> 
+                        <a href="/reviews/review/name/${name}" class="restaurantLink"><button class="btn btn-dark"> Review a Dish </button></a>
+                        <a href="/reviews/reviewhistory/name/${name}"><button id="reviewBtn" class="btn btn-dark dishBtn">View Reviews</button></a>  
+                    </div>
 
+                    <div class="container">
+                    <div class="row">
+                        <div class="restaurantDetails col-md-12 col-12">
+                            <p class="info"> ${pricing}      |      Rating: ${rating}/5       |       Cuisine: ${category} </p>
+                            <p class="info"> ${address}, ${city} </p>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+                </div> `)
+            );
 
         }
 

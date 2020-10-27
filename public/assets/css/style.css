@@ -76,17 +76,26 @@ p.lead {
   margin-bottom: 20px;
 }
 
-#restaurantList {
-  /* border: 1px solid red; */
-}
-
 #restaurantsNearby {
   padding: 30px;
 }
 
 /* For each individual restaurant on list of 10 */
-.restaurantItem {
-  padding: 30px;
+.listItem {
+  padding-bottom: 60px;
+}
+
+p.info {
+  margin: 0;
+}
+
+a.restaurantLink {
+  color: black;
+  font-size: small;
+}
+
+a.restaurantLink:hover {
+  color: rgb(63, 138, 151);
 }
 
 .restaurantInfo {
@@ -114,6 +123,19 @@ p.lead {
 
 #submitReviewBtn {
   margin-bottom: 20px;
+}
+
+#showAllReviews {
+  margin-left: 300px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+} 
+
+.singleReview {
+  list-style-type: none;
+  padding: 30px;
+  margin-bottom: 20px;
+  border: 1px solid grey;
+  border-radius: 8px;
 }
 
 
