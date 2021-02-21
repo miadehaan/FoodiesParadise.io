@@ -6,9 +6,13 @@
 ## Description 
 This application utilizes Node, Express, Sequelize, MySQL, & Handlebars templates to create a dish review application. By default, 10 restaurants near the user's location will populate with some information, and options to either view previous dish reviews or add a new dish review. This application is deployed using Heroku.
 
-- Deployed Application: https://frozen-river-52540.herokuapp.com/ 
-
+Original Application/Code:
+- Original Deployed Application: https://frozen-river-52540.herokuapp.com/ 
 - Github Repository: https://github.com/AndyMMunro/FoodiesParadise.io 
+
+Mia's Forked Application/Code:
+- Updated/Forked Deployed Application: 
+- Github Repository: https://github.com/miadehaan/FoodiesParadise.io
 
 ## Table of Contents
 - [Description](#Description)
