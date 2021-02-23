@@ -59,15 +59,25 @@ $(function () {
         // showDishes(userDish);
     });
 
+    // Onclick, open or close navbar
     $('#sidebarCollapse').on('click', function () {
         // open or close navbar
         $('#sidebar').toggleClass('active');
-        // close dropdowns
-        $('.collapse.in').toggleClass('in');
-        // and also adjust aria-expanded attributes we use for the open/closed arrows
-        // in our CSS
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
+
+    // Change icon if menu is open or closed
+    if( $('#sidebar').is("active") === true  ) {
+        // If menu is open, show 'x' icon
+        $('#sidebarCollapse').append(`
+            <i class="fas fa-window-close"></i>
+        `);
+    }
+    else if($('#sidebar').is("active") === false ) {
+        // If menu is closed, show search icon
+        $('#sidebarCollapse').append(`
+            <i class="fas fa-search"></i>
+        `);
+    }
 
     // Run geoFindMe on load
     geoFindMe();
@@ -95,7 +105,7 @@ function getRestaurant(){
     let lon = getCookie("lon");
 
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const queryURL =proxyurl+`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`;
+    const queryURL = `https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`;
      // site that doesn’t send Access-Control-*
     // console.log(queryURL);
 
