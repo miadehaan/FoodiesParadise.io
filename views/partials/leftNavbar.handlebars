@@ -3,20 +3,27 @@
 <nav id="sidebar">
     
     <!-- Search by Restaurant -->
-    <h4 class="searchHeader">Search by Restaurant</h4>
+    <h4 class="searchHeader">Find your Favorite Restaurant </h4>
+    <hr />
     <form class="restaurantSearch">
-        <div class="input-group mb-3">
-            <input type="text" id="restaurant" class="form-control" placeholder="restaurant name" aria-label="restaurant name" aria-describedby="button-addon2">
-            <input type="text" id="resLocation" class="form-control" placeholder="location" aria-label="restaurant location" aria-describedby="button-addon2">
-            
-            <div class="input-group-append">
-                <button class="btn btn-dark restaurantBtn" type="submit">Submit</button>
-            </div>
+        <div class="form-group mb-3">
+            <label for="restaurant">Search for a Restaurant </label>
+            <input type="text" id="restaurant" class="form-control" placeholder="restaurant name" aria-label="restaurant name">
         </div>
+
+        <div class="form-group mb-3">
+            <label for="resLocation">Enter the city & state of restaurant</label>
+            <input type="text" id="resLocation" class="form-control" placeholder="location" aria-label="restaurant location">
+        </div>
+    
+        <div class="submitBtn">
+            <button class="btn btn-dark restaurantBtn" type="submit">Submit</button>
+        </div>
+        <hr />
     </form>
 
     <!-- Search by Dish -->
-    <h4 class="searchHeader">Search by Dish</h4>
+    {{!-- <h4 class="searchHeader">Search by Dish</h4>
     <form class="dishSearch">
         <div class="input-group mb-3">
             <input type="text" id="dish" class="form-control" placeholder="dish name" aria-label="dish name" aria-describedby="button-addon2">
@@ -24,7 +31,7 @@
                 <button class="btn btn-dark dishBtn" type="submit">Submit</button>
             </div>
         </div>
-    </form>
+    </form> --}}
 
     <!-- Search by Cuisine Type -->
     {{!-- <form>

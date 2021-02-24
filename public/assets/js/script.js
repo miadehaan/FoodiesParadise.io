@@ -1,3 +1,5 @@
+// const { response } = require("express");
+
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
     function geoFindMe() {
@@ -69,9 +71,12 @@ $(function () {
         event.preventDefault();
 
         let inputRestaurant = $("#restaurant").val().trim();
+        let inputLocation = $("#resLocation").val().trim();
         console.log("The user searched for: " + inputRestaurant);
 
         // call YelpAPI
+        // first get restaurant coordinates based on text location
+        getRestaurantCoordinates(inputLocation);
         getRestaurant(`https://api.yelp.com/v3/businesses/search?term=${inputRestaurant}&latitude=${lat}&longitude=${lon}`);
 
         //Clear input field
@@ -98,6 +103,22 @@ function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function getRestaurantCoordinates(location) {
+    // OpenCage Geocoding API - (forward geocoding) to get lat/lon of user searched city
+    const apiKey = '2a4ca683387841f49a4463c0c58596cb';
+    const queryURL = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${apiKey}`;
+
+    fetch(queryURL)
+    .then(res => res.json())
+    .then( (data) => {
+        console.log(data);
+        //display the restaurant found in specified location/city
+        
+    })
+    .catch(() => console.log("Error... not working"));
+
 }
 
 function getRestaurant(queryURL){

@@ -69,8 +69,8 @@ p.lead {
 }
 
 .searchHeader {
-  text-align: left;
-  padding: 20px 10px 5px 20px;
+  text-align: center;
+  padding: 40px 10px 30px 20px;
 }
 
 .restaurantSearch, .dishSearch {
