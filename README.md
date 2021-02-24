@@ -34,13 +34,15 @@ To install this application, run:
 This application is for food lovers who are looking for their next restaurant!
 
 ## Technologies
+- Handlebars
+- Bootstrap
+- jQuery  
 - Node.js
 - Express.js
 - Sequelize
 - MySQL
-- Handlebars
-- Bootstrap
-- jQuery 
+- APIs: YelpAPI, OpenCage Geocoding
+
 
 ## Example
 

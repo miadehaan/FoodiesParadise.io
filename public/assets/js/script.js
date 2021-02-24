@@ -57,7 +57,7 @@ $(function () {
     // Initial call yo YelpAPI based on geolocation
     let lat = getCookie("lat");
     let lon = getCookie("lon");
-    getRestaurant(`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`);
+    getRestaurant(`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`, "geolocationResults");
 
     // button that goes back to main menu
     $(".backBtn").on("click", function (event) {
@@ -76,11 +76,11 @@ $(function () {
 
         // call YelpAPI
         // first get restaurant coordinates based on text location
-        getRestaurantCoordinates(inputLocation);
-        getRestaurant(`https://api.yelp.com/v3/businesses/search?term=${inputRestaurant}&latitude=${lat}&longitude=${lon}`);
+        getRestaurantCoordinates(inputRestaurant, inputLocation);
 
         //Clear input field
         $("#restaurant").val("");
+        $("#resLocation").val("");
     });
 
     // Get user inputs (restuarant and/or cuisine type selected)
@@ -105,7 +105,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-function getRestaurantCoordinates(location) {
+function getRestaurantCoordinates(restaurant, location) {
     // OpenCage Geocoding API - (forward geocoding) to get lat/lon of user searched city
     const apiKey = '2a4ca683387841f49a4463c0c58596cb';
     const queryURL = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${apiKey}`;
@@ -113,15 +113,20 @@ function getRestaurantCoordinates(location) {
     fetch(queryURL)
     .then(res => res.json())
     .then( (data) => {
-        console.log(data);
+        // console.log(data.results);
         //display the restaurant found in specified location/city
-        
+        let x = data.results[0].geometry.lat; // latitude
+        let y = data.results[0].geometry.lng; // longitude
+
+        // get restaurant results from Yelp API
+        getRestaurant(`https://api.yelp.com/v3/businesses/search?term=${restaurant}&latitude=${x}&longitude=${y}`, "searchedResults");
     })
     .catch(() => console.log("Error... not working"));
 
+
 }
 
-function getRestaurant(queryURL){
+function getRestaurant(queryURL, display){
     let headers = new Headers();
     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
     
@@ -145,16 +150,20 @@ function getRestaurant(queryURL){
         "Authorization":`Bearer ${apiKey}`,  
         }
     }) 
-    .then(response => response.json())
-    // .then(contents => console.log(contents))
+    .then(response => response.json()) // parse the data using json()
     .then( (data) => {
         // Show 10 restaurants nearby based on user Geolocation (index / html-routes)
         //  Loop through object and display first 10  'businesses'
-        console.log(data);
-
+        console.log(data.businesses);
         let business = data.businesses;
 
-        for(var i=0; i < 10; i++) {
+        // remove original results from geolocation - user searches for specific restaurant
+        // if (display === "searchedResults") {
+        //     // remove previous HTML
+        //     $("#restaurantsNearby").remove( $("<li>") );
+        // } 
+
+        for(var i=0; i < 20; i++) {
             // console.log(name); // get the restaurant's name
             let name = business[i].name;
             let address = [business[i].location.display_address[0]];
@@ -167,31 +176,28 @@ function getRestaurant(queryURL){
             $("#restaurantsNearby").append(
                 $("<li>").append(`
                 <div class="container listItem">
-                <div class="row">
-                
-                    <div class="col-md-8 col-12"> <h4 class="restaurantItem">${name}   </h4></div>
-                    
-                    <div class="col-md-4 col-12"> 
-                        <a href="/reviews/review/name/${name}" class="restaurantLink"><button class="btn btn-dark"> Review a Dish </button></a>
-                        <a href="/reviews/reviewhistory/name/${name}"><button id="reviewBtn" class="btn btn-dark dishBtn">View Reviews</button></a>  
-                    </div>
-
-                    <div class="container">
                     <div class="row">
-                        <div class="restaurantDetails col-md-12 col-12">
-                            <p class="info"> ${pricing}      |      Rating: ${rating}/5       |       Cuisine: ${category} </p>
-                            <p class="info"> ${address}, ${city} </p>
+                    
+                        <div class="col-md-8 col-12"> <h4 class="restaurantItem">${name}   </h4></div>
+                        
+                        <div class="col-md-4 col-12"> 
+                            <a href="/reviews/review/name/${name}" class="restaurantLink"><button class="btn btn-dark"> Review a Dish </button></a>
+                            <a href="/reviews/reviewhistory/name/${name}"><button id="reviewBtn" class="btn btn-dark dishBtn">View Reviews</button></a>  
                         </div>
-                    </div>
-                    </div>
 
-                </div>
+                        <div class="container">
+                        <div class="row">
+                            <div class="restaurantDetails col-md-12 col-12">
+                                <p class="info"> ${pricing}      |      Rating: ${rating}/5       |       Cuisine: ${category} </p>
+                                <p class="info"> ${address}, ${city} </p>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
                 </div> `)
             );
-
         }
-
-
 
     }).catch(() => console.log("Can’t access " + proxyurl + " response. Blocked by browser?"));
 
