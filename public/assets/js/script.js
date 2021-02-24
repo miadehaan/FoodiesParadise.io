@@ -29,33 +29,6 @@ $(function () {
         }
     }
 
-
-    // Get user inputs (restuarant and/or cuisine type selected)
-    $(".restaurantSearch").on("submit", function (event) {
-        event.preventDefault();
-
-        let inputRestaurant = $("#restaurant").val().trim();
-        console.log("The user searched for: " + inputRestaurant);
-        
-        //Clear input field
-        $("#restaurant").val("");
-
-        showRestaurant(inputRestaurant);
-    });
-
-    // Get user inputs (restuarant and/or cuisine type selected)
-    // $(".dishSearch").on("submit", function (event) {
-    //     event.preventDefault();
-
-    //     let userDish = $("#dish").val().trim();
-    //     console.log("The user searched for: " + userDish);
-
-    //     //Clear input field
-    //     $("#dish").val("");
-
-    //     // showDishes(userDish);
-    // });
-
     // Onclick, open or close navbar
     $('#sidebarCollapse').on('click', function () {
         // open or close navbar
@@ -78,8 +51,47 @@ $(function () {
 
     // Run geoFindMe on load
     geoFindMe();
-    getRestaurant();
-    // viewReviews();
+
+    // Initial call yo YelpAPI based on geolocation
+    let lat = getCookie("lat");
+    let lon = getCookie("lon");
+    getRestaurant(`https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`);
+
+    // button that goes back to main menu
+    $(".backBtn").on("click", function (event) {
+        event.preventDefault();
+        window.location = "/";
+    });
+
+
+    // Get user inputs (restuarant and/or cuisine type selected)
+    $(".restaurantSearch").on("submit", function (event) {
+        event.preventDefault();
+
+        let inputRestaurant = $("#restaurant").val().trim();
+        console.log("The user searched for: " + inputRestaurant);
+
+        // call YelpAPI
+        getRestaurant(`https://api.yelp.com/v3/businesses/search?term=${inputRestaurant}&latitude=${lat}&longitude=${lon}`);
+
+        //Clear input field
+        $("#restaurant").val("");
+    });
+
+    // Get user inputs (restuarant and/or cuisine type selected)
+    $(".dishSearch").on("submit", function (event) {
+        event.preventDefault();
+
+        let userDish = $("#dish").val().trim();
+        console.log("The user searched for: " + userDish);
+
+        //Clear input field
+        $("#dish").val("");
+
+        // Search DB if dish exists yet
+    
+    });
+
 });
 
 function getCookie(name) {
@@ -88,7 +100,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-function getRestaurant(){
+function getRestaurant(queryURL){
     let headers = new Headers();
     const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
     
@@ -98,12 +110,8 @@ function getRestaurant(){
     headers.append('Content-Type', 'application/json');
     headers.append('GET', 'POST', 'OPTIONS');
 
-    let lat = getCookie("lat");
-    let lon = getCookie("lon");
-
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const queryURL = `https://api.yelp.com/v3/businesses/search?restaurants&latitude=${lat}&longitude=${lon}`;
-     // site that doesn’t send Access-Control-*
+    // site that doesn’t send Access-Control-*
     // console.log(queryURL);
 
     fetch(proxyurl + queryURL,{
@@ -168,29 +176,11 @@ function getRestaurant(){
 
 }
 
-// Send the 'userInput' to the restaurant route w/ POST method
-function showRestaurant(restaurant) {
-    $.post("/api/restaurant-routes", {
-            restaurant: restaurant
-        })
-        .then(function (data) {
-            window.location.replace("/index");
-            // If there's an error, handle it by throwing up a bootstrap alert
-        })
-        .fail(handleLoginErr);
-}
-
 function handleLoginErr(err) {
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
 }
 
 
-// button that goes back to main menu
-$(".backBtn").on("click", function (event) {
-    event.preventDefault();
-    // Send the GET request (html-routes.js)
-    window.location = "/";
 
-});
 
