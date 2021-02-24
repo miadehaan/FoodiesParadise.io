@@ -34,30 +34,27 @@ $(function () {
     $(".restaurantSearch").on("submit", function (event) {
         event.preventDefault();
 
-        let userRestaurant = $("#restaurant").val().trim();
-        let tempLimit = 10;
-        console.log("The user searched for: " + userRestaurant);
-        let url = `/rest/restaurant/name?q=${userRestaurant}&limit=${tempLimit}`;
+        let inputRestaurant = $("#restaurant").val().trim();
+        console.log("The user searched for: " + inputRestaurant);
+        
         //Clear input field
         $("#restaurant").val("");
 
-        window.location = url;
-
-        // showRestaurant(userRestaurant);
+        showRestaurant(inputRestaurant);
     });
 
     // Get user inputs (restuarant and/or cuisine type selected)
-    $(".dishSearch").on("submit", function (event) {
-        event.preventDefault();
+    // $(".dishSearch").on("submit", function (event) {
+    //     event.preventDefault();
 
-        let userDish = $("#dish").val().trim();
-        console.log("The user searched for: " + userDish);
+    //     let userDish = $("#dish").val().trim();
+    //     console.log("The user searched for: " + userDish);
 
-        //Clear input field
-        $("#dish").val("");
+    //     //Clear input field
+    //     $("#dish").val("");
 
-        // showDishes(userDish);
-    });
+    //     // showDishes(userDish);
+    // });
 
     // Onclick, open or close navbar
     $('#sidebarCollapse').on('click', function () {
@@ -171,33 +168,6 @@ function getRestaurant(){
 
 }
 
-// function viewReviews() {
-    // Show reviews when button is clicked
-    // $(".reviewBtn").on("click", function() {
-    //     const name = $(this).attr("data-name");
-        
-    //     console.log("This is a test");
-    //     // window.location("/reviewHistory");
-
-    //     $.ajax({
-    //         url: `/reviews/reviewHistory/name/${name}`,
-    //         type: "GET",
-    //     }).then(function(wooho) {
-    //         console.log(wooho);
-    //     })
-    //     // $.ajax( {
-    //     //     url: "/reviews/review",
-    //     //     type: "POST",
-    //     //     data: newReview
-    //     // }).then(function() {
-    //     //     console.log("created new review");
-    //     // });
-
-    // });
-// }
-
-
-
 // Send the 'userInput' to the restaurant route w/ POST method
 function showRestaurant(restaurant) {
     $.post("/api/restaurant-routes", {
@@ -215,74 +185,12 @@ function handleLoginErr(err) {
     $("#alert").fadeIn(500);
 }
 
-// When 'Add Review' button is click, the form is display for user to add a new dish review
-// function newReview() {
-//     // // Show the form for adding new dish review
-//     $(".addReviewBtn").on("click", function (event) {
-//         console.log("test");
-//         event.preventDefault();
-//         // Send the GET request (html-routes.js)
-//         window.location="/reviewform";
-//         // $.get("/reviewform").then(function() {
-//         //     // $(".newReview").append($("<h1>").text("Add new dish review: ")); //test html
-            
-//         //     console.log("The blank form is now being displayed");
-//         // });
-        
-//     });
 
-    // 
-    $(".backBtn").on("click", function (event) {
-        event.preventDefault();
-        // Send the GET request (html-routes.js)
-        window.location = "/";
-    
-    });
+// button that goes back to main menu
+$(".backBtn").on("click", function (event) {
+    event.preventDefault();
+    // Send the GET request (html-routes.js)
+    window.location = "/";
 
-    // Store the info the user submitted in the form
-    // $("#submitReviewBtn").on("click", function (event) {
-    //     event.preventDefault();
+});
 
-    //     var newReview = {
-    //         name: $("#newDish").val().trim(),
-    //         comments: $("#newComments").val().trim(),
-    //         rating: $("#newRating").val().trim(),
-    //         dishName: $("#dishName").val().trim(),
-    //         restaurantName: $("#restaurantName").val().trim()
-    //     };
-    //     console.log(newReview);
-
-    //     // Send the review info (review-routes.js)
-    //     $.ajax( {
-    //         url: "/reviews/review",
-    //         type: "POST",
-    //         data: newReview
-    //     }).then(function() {
-    //         console.log("created new review");
-    //     });
-
-    //     // // Send just the DISH (dish-routes.js)
-    //     // $.ajax("/api/dish", {
-    //     //     type: "POST",
-    //     //     data: newReview.name
-    //     // }).then(function() {
-    //     //     console.log("created new dish");
-    //     //     // Reload the page to get the updated list
-    //     //     location.reload();
-    //     //     }
-    //     // );
-
-
-    //     // clear the form
-    //     $("#newDish").val("");
-    //     $("#newRestaurant").val("");
-    //     $("#newRating").val("");
-    //     $("#newComments").val("");
-        
-    // });
-
-
-// $("#restaurantsNearby").on("click", function (e) {
-//     let text = e.target;
-//     window.location = `/reviews/review/${text}`
-// });
