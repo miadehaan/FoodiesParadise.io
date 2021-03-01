@@ -30,8 +30,9 @@
                                 {{!-- <label for="newDish">Dish name</label> --}}
                                 {{!-- <input type="text" id="newDish" class="form-control" placeholder="Pizza"> --}}
                                 <select id="newDish" class="form-control" name="dish">
-                                    {{#each dishs}}
-                                    <option value="{{id}}|{{name}}">{{name}}</option>
+                                    {{!-- Drop down - displays existing dishes for this restaurant --}}
+                                    {{#each dishes}}
+                                        <option value="{{id}}|{{name}}">{{name}}</option>
                                     {{/each}}
                                     <option value="CREATENEWDISH">Create a new dish in the text box below</option>
                                 </select>

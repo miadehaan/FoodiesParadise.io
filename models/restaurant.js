@@ -1,4 +1,3 @@
-
 module.exports = function (sequelize, Datatypes) {
   var restaurant = sequelize.define("restaurant", {
     name: {

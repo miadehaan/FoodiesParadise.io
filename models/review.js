@@ -1,8 +1,6 @@
-// const models = require("../models");
 
 module.exports=function (sequelize, Datatypes) {
   var review = sequelize.define("review", {
- 
     name: {
       type: Datatypes.STRING,
       allowNull: false,

@@ -1,22 +1,20 @@
 const db = require("../models");
 const sequelize = require("sequelize");
 const express = require("express");
-const { Router } = require("express");
 const dish = require("../models/dish");
-
 var router = express.Router();
 
-// Pull dishes from database and show on page
+// Show existing dish reviews from MySQL database -----------------------------------------------
 router.get("/reviewHistory/name/:restaurantName", function (req, res) {
-  console.log("hi");
   // console.log(req.body);
   let restaurantName = req.params.restaurantName;
   console.log("testing : " + restaurantName); // pulls up the restaurant name that was selected
-db.restaurant.findOne({
+
+  db.restaurant.findOne({
     where:{
         name:restaurantName
     }
-}).then(restaurants=>{
+  }).then(restaurants=>{
 
     if(restaurants){
         db.dish
@@ -40,48 +38,61 @@ db.restaurant.findOne({
         res.render("reviews",{dishReviews:null});
     }
     
-
     // console.log(restaurants.id);
-   }).catch(function (err) {
+    }).catch(function (err) {
       console.error(err);
     });
 });
 
-router.get("/review/id/:id", function (req, res) {
-  db.review
-    .findOne({
+
+// For NEW  dish reviews ----------------------------------------------------------------
+
+// Send existing restaurant dishes to FORM
+router.get("/review/name/:restaurantName", function (req, res) {
+  // console.log(req.body);
+  let restaurantName = req.params.restaurantName;
+
+  // New restaurnt added to table if doesn't exist
+  db.restaurant
+    .findOrCreate({
       where: {
-        id: req.params.id,
+        name: restaurantName,
+      },
+      defaults: {
+        name: restaurantName,
       },
     })
-    .then(function (dbReview) {
-      res.json(dbReview);
+    .then(function (restaurant) {
+      var created = restaurant[1];
+      console.log(`Created ${created}`);
+      restaurantInfo = restaurant[0]; //new or found
+
+      db.dish
+        .findAll({
+          where: {
+            RestaurantId: restaurantInfo.id,
+          },
+        })
+        .then(function (dishes) {
+          console.log("TESING!!");
+          console.log(dishes);
+
+          res.render("newdishform", {
+            style: "assetscssstyle.css",
+            dishes: JSON.parse(JSON.stringify(dishes)),
+            restaurantName: restaurantName,
+          });
+        });
+    })
+    .catch(function (err) {
+      console.error(err);
     });
 });
 
-// store new review
-// clear
-
-// db.restaurant.findOne({
-//     where: {
-//         name: restaurantName
-//     }
-// }).then(function (restaurant) {
-//     db.dish.findAll({
-//         where: {
-//             RestaurantId: restaurant.id
-//         }
-//     }).then(function (dishs) {
-//         res.render("newdishform", {"dishs": JSON.parse(JSON.stringify(dishs)), "restaurantName": restaurantName})
-//     })
-// });
-// });
-
-// store new review
+// Save NEW review to DB
 router.post("/review/name/:restaurantName", function (req, res) {
   console.log(req.body);
   let restaurantName = req.params.restaurantName;
-  let dishId = req.body.dishId;
 
   db.restaurant
     .findOne({
@@ -109,6 +120,7 @@ router.post("/review/name/:restaurantName", function (req, res) {
           },
         })
         .then(function (dishData) {
+          // collect data from form
           let newDishData = dishData[0];
 
           var newReview = {
@@ -118,79 +130,11 @@ router.post("/review/name/:restaurantName", function (req, res) {
             dishId: newDishData.id,
           };
 
+          // save review to 'review' table
           db.review.create(newReview).then(function (dbReview) {
             res.redirect("/");
           });
         });
-    });
-});
-router.get("/review/name/:restaurantName", function (req, res) {
-  // console.log(req.body);
-  let restaurantName = req.params.restaurantName;
-
-  db.restaurant
-    .findOrCreate({
-      where: {
-        name: restaurantName,
-      },
-      defaults: {
-        name: restaurantName,
-      },
-    })
-    .then(function (restaurant) {
-      var created = restaurant[1];
-      console.log(`Created ${created}`);
-      restaurantInfo = restaurant[0]; //new or found
-      db.dish
-        .findAll({
-          where: {
-            RestaurantId: restaurantInfo.id,
-          },
-        })
-        .then(function (dishs) {
-          res.render("newdishform", {
-            style: "assetscssstyle.css",
-            dishs: JSON.parse(JSON.stringify(dishs)),
-            restaurantName: restaurantName,
-          });
-        });
-    })
-    .catch(function (err) {
-      console.error(err);
-    });
-});
-// // store new review
-// router.post("/review/:restaurantName", function (req, res) {
-//     console.log(req.body);
-
-//     db.review.findOne({
-//         where: {
-//             name: req.params.restaurantName
-//         }
-//     }).then(function (dbReview) {
-//         var newReview = {
-//             name: req.body.name,
-//             comments: req.body.comments,
-//             rating: req.body.rating,
-//             dishId: dbReview.id
-//         };
-
-//         db.review.create(newReview).then(function (dbReview) {
-//             res.json(dbReview);
-//         });
-//     });
-
-// });
-
-router.delete("/review/:id", function (req, res) {
-  db.review
-    .destroy({
-      where: {
-        id: req.params.id,
-      },
-    })
-    .then(function (dbReview) {
-      res.json(dbReview);
     });
 });
 
