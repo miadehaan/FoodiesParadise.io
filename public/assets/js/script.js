@@ -118,6 +118,8 @@ function getRestaurantCoordinates(restaurant, location) {
         let x = data.results[0].geometry.lat; // latitude
         let y = data.results[0].geometry.lng; // longitude
 
+        console.log(`Searched Location Coordinates - Lat: ${x} & Lon: ${y}`);
+
         // get restaurant results from Yelp API
         getRestaurant(`https://api.yelp.com/v3/businesses/search?term=${restaurant}&latitude=${x}&longitude=${y}`, "searchedResults");
     })
@@ -128,7 +130,7 @@ function getRestaurantCoordinates(restaurant, location) {
 
 function getRestaurant(queryURL, display){
     let headers = new Headers();
-    const apiKey = "A8m2ZTgd7SwOiTFzjb04ljBmgdsAaO1nl50gJcmoZAGQmR4GKf3siNhU7KniFu1ilbbW7XSDVoJmxQuD3ZwrbC_2fWkB6N18duGI_Yy2kFzPiB2ZpY10Mbu_zRmNX3Yx";
+    const apiKey = "lhxCeK-f0hcUqfSndE8tu4XPj_YfyaHHlyBoNNI48VN4sTyB7i1-uCenCy6LQTRd8QIzQdWuGnyM1D_siX7bqLaissN85FhJ9_9Jyh9UouAbooXA0oSUaehG6VQ9YHYx";
     
     headers.append('Access-Control-Allow-Origin', 'http://localhost:8080');
     headers.append('Access-Control-Allow-Credentials', 'true');
@@ -140,14 +142,14 @@ function getRestaurant(queryURL, display){
     // site that doesn’t send Access-Control-*
     // console.log(queryURL);
 
-    fetch(proxyurl + queryURL,{
+    fetch(proxyurl + queryURL, {
         // credentials:"include",
         headers:{
             "Access-Control-Allow-Origin":`http://localhost:8080`,
             "Access-Control-Allow-Credentials":`true`,
             "Content-Type":`application/json`,
             "method":"GET",
-        "Authorization":`Bearer ${apiKey}`,  
+            "Authorization":`Bearer ${apiKey}`,  
         }
     }) 
     .then(response => response.json()) // parse the data using json()

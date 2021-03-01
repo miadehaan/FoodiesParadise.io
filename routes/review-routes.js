@@ -21,13 +21,11 @@ db.restaurant.findOne({
     if(restaurants){
         db.dish
         .findAll({
-           
           include: [
             {
               model: db.review,
               
             },
-           
           ],
           where:{
             restaurantId:restaurants.id
